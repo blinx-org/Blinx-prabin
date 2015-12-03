@@ -27,14 +27,14 @@
         <a href="accept.php?id=<?php echo $request["Id"] ?>"class="btn btn-success pull-right" style="margin-right: -70px;margin-top: -14px;">Accept</a>
     </h4>
     <p>
-        Type of service <b><?php echo $request["Description"] ?></b> 
-        <?php (isset($request["duration"]) ? " for " . $request["duration"] . "Hrs" : "") ?> on 
+        <b><?php echo $request["Description"] ?></b>  service
+        <?php echo (isset($request["duration"]) ? " for " . $request["duration"] . "Hrs" : "") ?> on 
         <code><?php echo $request["Requesteddate"] ?></code>
         <?php if (isset($request["Location"])) { ?>
             at <a target="_blank" href="https://www.google.com/maps/place/<?php echo $request["latitude"] ?>,<?php echo $request["longitude"] ?>"><?php echo $request["Location"] ?></a>
             <?php
-        }
-        echo $request["Message"]
+        }?> <br> 
+        <?php echo $request["Message"]
         ?>
     </p>
 </div>
