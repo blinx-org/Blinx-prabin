@@ -122,9 +122,9 @@ function run_query() {
     );
     $data['distance_range'] = array(
         array("screen_name" => "1Km", "id" => 1),
-        array("screen_name" => "2Km", "id" => 2),
-        array("screen_name" => "3Km", "id" => 3),
-        array("screen_name" => "4Km", "id" => 4)
+        array("screen_name" => "5Km", "id" => 5),
+        array("screen_name" => "10Km", "id" => 10),
+        array("screen_name" => "15Km", "id" => 15)
     );
     $data['duration_range'] = array(
         array("screen_name" => "1Hr", "id" => 1),
