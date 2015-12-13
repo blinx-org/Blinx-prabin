@@ -12,7 +12,7 @@ function update_Accept_request() {
     $status = isset($_POST["status"]) ? $_POST["status"] : '';
     $vid = isset($_POST["vid"]) ? $_POST["vid"] : '';
     $reqId = isset($_POST["reqID"]) ? $_POST["reqID"] : '';
-    $UsrId = isset($_POST["usrID"]) ? $_POST["usrID"] : '0';
+    $UsrId = isset($_POST["Uid"]) ? $_POST["Uid"] : '0';
     $mId='0';
     if($reqId=='' || $vid=='' || $status =='' )
     {
@@ -51,6 +51,7 @@ function create_request() {
     $data['Status'] = array(
         array("DBStatus" => "2", "Message" => "Values are Empty")
             );
+    $DbStatus=$data['Status'];
     $date = date('Y-m-d H:i:s');
     $Uid = isset($_POST["Uid"]) ? $_POST["Uid"] : '';
     $email = isset($_POST["email"])?$_POST["email"] : '';
@@ -62,13 +63,12 @@ function create_request() {
     $location=$place1.$place2;
     $message= isset($_POST["message"])?$_POST["message"] : '';
     $address= isset($_POST["address"])?$_POST["address"] : '';
-    $education = isset($_POST["education"])?$_POST["education"] : '';
     $latitide = isset($_POST["lat"])?$_POST["lat"] : '';
     $logitude = isset($_POST["long"])?$_POST["long"] : '';
     $duration = isset($_POST["duration"])?$_POST["duration"] : '';
     $status = isset($_POST["status"]) ? $_POST["status"] : '';
-    $lang = isset($_POST["lang"]) ? $_POST["lang"] : '';
     $meetingType = isset($_POST["meeting"]) ? $_POST["meeting"] : '';
+    $language = isset($_POST["language"])?$_POST["language"] : '';
     
     if($Uid=='' || $email=='' || $phone ==''||$helpdId==''||$latitide==''||$logitude=='' )
     {
@@ -81,25 +81,26 @@ function create_request() {
         $row= mysqli_fetch_array( $value,MYSQLI_ASSOC);
         $txnid=intval($row["MaxID"])+1;
         $sql="INSERT INTO t_help_request (Id,phone,email,UserId,helpId,Message,Address,"
-                                . "Location,Requesteddate,Createddate,latitude,longitude,Duration)"
-                                . "VALUES( $txnid,'$phone','$email',$Uid,$helpdId,"
-                                . "'$message','$address','$place','$requestdate',"
-                                . "'$current_date','$latitide','$logitude','$duration')";
-        
-        
+                                . "Location,Requesteddate,Createddate,latitude,longitude,Duration,Status,Language,Meetingtype)"
+                                . "VALUES( $txnid,'$phone','$email','$Uid','$helpdId',"
+                                . "'$message','$address','$location','$requestdate',"
+                                . "'$date','$latitide','$logitude','$duration','$status','$language','$meetingType')";
+        $result=  update_query($sql);
         if($result)
         {
-            mysqli_commit($conn);
             foreach($DbStatus as $key=>$bal) {
-                    $DbStatus[$key]['DBStatus']=$value;
+                    $DbStatus[$key]['DBStatus']=$result;
                     $DbStatus[$key]['Message']="Success";
               }
         }
         else
         {
-            mysqli_rollback($conn);
+             foreach($DbStatus as $key=>$bal) {
+                    $DbStatus[$key]['DBStatus']=$result;
+                    $DbStatus[$key]['Message']="Failure";
+              }
         }
-        mysqli_close($conn);
+        //echo $sql;
         echo json_encode($DbStatus);
         //return $data['Status'];
     }
@@ -134,7 +135,7 @@ function update_query($query) {
     return $result;
 }
 
-$possible_url = array("update_request", "put_ratings");
+$possible_url = array("update_request", "put_ratings","create_request");
 
 $value = "An error has occurred";
 //$value = update_ratings();
@@ -148,11 +149,12 @@ if (isset($_POST["action"]) && in_array($_POST["action"], $possible_url)) {
             insert_ratings();
             break;
         case "create_request":
+            //echo "aaa";
             create_request();
             break;
     }
-}
-
+    }
+//echo create_request();
 //exit(json_encode($value));	
 exit;
 ?>
