@@ -9,11 +9,11 @@ CREATE TABLE `f_language` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-insert into `blinx`.`f_language`(`Id`,`Description`,`IsUsed`) values (1,'English',1);
-insert into `blinx`.`f_language`(`Id`,`Description`,`IsUsed`) values (2,'Hindi',1);
-insert into `blinx`.`f_language`(`Id`,`Description`,`IsUsed`) values (3,'Telugu',1);
-insert into `blinx`.`f_language`(`Id`,`Description`,`IsUsed`) values (4,'Tamil',1);
-insert into `blinx`.`f_language`(`Id`,`Description`,`IsUsed`) values (5,'Kannada',1);
-insert into `blinx`.`f_language`(`Id`,`Description`,`IsUsed`) values (6,'Malayalam',1);
-insert into `blinx`.`f_language`(`Id`,`Description`,`IsUsed`) values (7,'Gujarati',1);
-insert into `blinx`.`f_language`(`Id`,`Description`,`IsUsed`) values (8,'Punjabi',1);
+insert into `f_language`(`Id`,`Description`,`IsUsed`) values (1,'English',1);
+insert into `f_language`(`Id`,`Description`,`IsUsed`) values (2,'Hindi',1);
+insert into `f_language`(`Id`,`Description`,`IsUsed`) values (3,'Telugu',1);
+insert into `f_language`(`Id`,`Description`,`IsUsed`) values (4,'Tamil',1);
+insert into `f_language`(`Id`,`Description`,`IsUsed`) values (5,'Kannada',1);
+insert into `f_language`(`Id`,`Description`,`IsUsed`) values (6,'Malayalam',1);
+insert into `f_language`(`Id`,`Description`,`IsUsed`) values (7,'Gujarati',1);
+insert into `f_language`(`Id`,`Description`,`IsUsed`) values (8,'Punjabi',1);
