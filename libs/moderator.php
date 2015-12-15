@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Asia/Kolkata');
 function get_all_volunteers()
 {
 	$value=all_volunteers();
@@ -14,10 +15,9 @@ function all_blind()
 	 // including db connection details into search backend
     include_once 'dbconnection.php';
 
-   
     $where='';
     $conn = mysqli_connect($host, $user, $pass, $database) or die("Error " . mysqli_error($link));
-    $query = "SELECT user_id, first_name, last_name, email_id, mobile_number, alternative_mobile_number,".
+    $query = "SELECT user_id, first_name, last_name, email_id, mobile_number, emergency_mobile_number,".
 			" date_of_birth, gender, qualification, institution, occupation, state, district, location, address,".
 			" document_path, create_time, update_time, cud, verified, m_id, verifier_mid ".
 			" FROM m_user";
@@ -118,7 +118,7 @@ function all_blind()
     }
     //
     mysqli_close($conn);
-    return json_encode($data);
+    return $data['binfo'];
 	//return $sql_final;
 }
 function all_volunteers()
@@ -172,10 +172,10 @@ function all_volunteers()
     }
     //
     mysqli_close($conn);
-    //return $data;
+    //return $data['vinfo'];
 	return $sql_final;
 }
-$possible_url = array("vsearch", "bsearch","vconfirm","bconfirm");
+$possible_url = array("vsearch", "bsearch","usr_not_verified","volunteer_not_verified");
 if (isset($_GET["action"]) && in_array($_GET["action"], $possible_url)) {
     $_empty_call = false;
 
@@ -186,17 +186,11 @@ if (isset($_GET["action"]) && in_array($_GET["action"], $possible_url)) {
         case "bsearch":
                 $value = get_all_blind();
             break;
-        case "vconfirm":
-            if (isset($_GET["loc"]))
-                $value = get_location_autofill($_GET["loc"]);
-            else
-                $value = "Missing argument";
+        case "usr_not_verified":
+                $value = usr_not_verified();
             break;
-        case "bconfirm":
-            if (isset($_GET["distance"]) && isset($_GET["service"]))
-                $value = get_location_autofill($_GET["loc"]);
-            else
-                $value = "Missing argument";
+        case "volunteer_not_verified":
+                $value = volunteer_not_verified();
             break;
     }
 }
