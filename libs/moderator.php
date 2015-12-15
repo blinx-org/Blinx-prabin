@@ -10,16 +10,44 @@ function get_all_blind()
 	$value=all_blind();
 	echo json_encode($value);
 }
-function all_blind()
+function usr_not_verified()
 {
-	 // including db connection details into search backend
     include_once 'dbconnection.php';
-
     $where='';
     $conn = mysqli_connect($host, $user, $pass, $database) or die("Error " . mysqli_error($link));
     $query = "SELECT user_id, first_name, last_name, email_id, mobile_number, emergency_mobile_number,".
 			" date_of_birth, gender, qualification, institution, occupation, state, district, location, address,".
-			" document_path, create_time, update_time, cud, verified, m_id, verifier_mid ".
+			" document_path, create_time, update_time, cud, status, m_id, verifier_mid ".
+			" FROM m_user where status in('N')";
+    if (isset($_GET["order"]) && isset($_GET["order"]) != '') {
+        if (isset($_GET["order"]) == 'asc') {
+            $order = " order by first_name asc";
+        }
+        $order = " order by first_name desc";
+    } else {
+        $order = " order by first_name desc";
+    }
+    $sql_final = $query . $where . $order;
+    $result = mysqli_query($conn, $sql_final);
+    if($result)
+    {
+        $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+        echo json_encode($row);
+    }
+ else {
+        echo $sql_final;
+    }
+    
+}
+function all_blind()
+{
+	 // including db connection details into search backend
+    include_once 'dbconnection.php';
+    $where='';
+    $conn = mysqli_connect($host, $user, $pass, $database) or die("Error " . mysqli_error($link));
+    $query = "SELECT user_id, first_name, last_name, email_id, mobile_number, emergency_mobile_number,".
+			" date_of_birth, gender, qualification, institution, occupation, state, district, location, address,".
+			" document_path, create_time, update_time, cud, status, m_id, verifier_mid ".
 			" FROM m_user";
 
 	if (isset($_GET["uid"]) && $_GET["uid"] != '') 
