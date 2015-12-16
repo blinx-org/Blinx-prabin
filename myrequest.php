@@ -33,20 +33,24 @@ $_pageid = 113;
                     </div>
                 </div>
                 <?php
-                if (!(empty($_POST) || (null == @$_POST['id']))) {
-
+                if ((empty($_POST) || (null == @$_POST['reqid']))) {
+					$value = 'Unable to fetch request please try <a href="' . URL_SEARCH . '">again</a>';
                     TODO //update db 
                     ?>
-                    <div class="alert alert-success" role="alert">Request status updated</div>
+					<div class="alert alert-warning" role="alert"><?php echo $value ?></div>
                     <?php
                 }
-
-
+				else
+				{?>
+					<div class="alert alert-warning" role="alert"><?php echo $_POST['reqid'] . " " . $_POST["status"]. " " . $_POST["usrid"]. " " . $_POST["vid"] ?></div>
+                    <div class="alert alert-success" role="alert">Request status updated</div>
+					<?php
+				}	
                 //load the old request
                 //TODO need to add new 
                 include './libs/request.php';
                 //hard coded till sitn in integration
-                $__data = getAllList(7);
+                $__data = run_query($_POST['reqid'])
                 //TODO: need to fix the query
                 ?>
                 <div class="row">
