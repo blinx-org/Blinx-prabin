@@ -29,7 +29,7 @@ $_pageid = 112;
                     <?php
                 } else {
                     include './libs/request.php';
-                    $__data = run_query();
+                    $__data = run_query($_GET['id']);
                     $data = $__data["request"][0];
                     //TODO: need to fix the query
                     ?>
@@ -80,7 +80,10 @@ $_pageid = 112;
                             <div style="margin-top: 30px"></div>
                             <div class="col-md-12 text-center">
                                 <form action="myrequest.php" method="POST">
-                                    <input value="" name="id" type="hidden"/>
+                                    <input value=" <?php echo $data["reqID"]?>" name="reqid" type="hidden"/>
+									<input value=" <?php echo $data["Id"]?>" name="usrid" type="hidden"/>
+									<input value="12" name="vid" type="hidden"/>
+									<input value="A" name="status" type="hidden"/>
                                     <button type="submit" class="btn btn-success btn-larges ">Confirm</button>
                                 </form>
                             </div>
