@@ -24,7 +24,7 @@
         <?php
         echo $request["first_name"] . " " . $request["last_name"]
         ?>
-        <a href="accept.php?id=<?php echo $request["Id"] ?>"class="btn btn-success pull-right" style="margin-right: -70px;margin-top: -14px;">Accept</a>
+        <a href="accept.php?id=<?php echo $request["reqID"] ?>"class="btn btn-success pull-right" style="margin-right: -70px;margin-top: -14px;">Accept</a>
     </h4>
     <p>
         <b><?php echo $request["Description"] ?></b>  service
@@ -36,5 +36,6 @@
         }?> <br> 
         <?php echo $request["Message"]
         ?>
+        <?php echo $request["reqID"] ?>
     </p>
 </div>
