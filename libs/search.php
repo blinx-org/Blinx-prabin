@@ -22,7 +22,7 @@ function all_requests()
    
     $where='';
     $conn = mysqli_connect($host, $user, $pass, $database) or die("Error " . mysqli_error($link));
-    $query = "SELECT  h.Id, h.Description, u.first_name, u.last_name, u.mobile_number, u.gender, u.user_id, req.Id as reqID, req.Message,req.Address,req.Location,req.Createddate,req.Requesteddate,req.latitude,req.longitude,req.duration FROM  t_help_request req, m_user u , f_help h where req.userId = u.user_id and h.Id = req.helpId";
+    $query = "SELECT  h.Id, h.Description, u.first_name, u.last_name, u.mobile_number, u.gender, u.user_id, req.Id as reqID, req.Message,req.Address,req.Location,req.Createddate,req.Requesteddate,req.latitude,req.longitude,req.duration FROM  t_help_request req, m_user u , f_help h where req.userId = u.user_id and h.Id = req.helpId ";
 
 	  if (isset($_GET["distance_range"]) && $_GET["distance_range"] != '') {
 		$distanceFilter = isset($_GET["distance_range"]) ? $_GET["distance_range"] : 4;
@@ -153,18 +153,17 @@ function run_query() {
     $lat = $_GET["lat"];
     
     $conn = mysqli_connect($host, $user, $pass, $database) or die("Error " . mysqli_error($link));
-    $query = "SELECT  h.Id, h.Description, u.first_name, u.last_name, u.mobile_number, u.gender, u.user_id, req.Id as reqID, req.Message,req.Address,req.Location,req.Createddate,req.Requesteddate,req.latitude,req.longitude,req.duration FROM  t_help_request req, m_user u , f_help h where req.userId = u.user_id and h.Id = req.helpId";
+    $query = "SELECT  h.Id, h.Description, u.first_name, u.last_name, u.mobile_number, u.gender, u.user_id, req.Id as reqID, req.Message,req.Address,req.Location,req.Createddate,req.Requesteddate,req.latitude,req.longitude,req.duration FROM  t_help_request req, m_user u , f_help h where req.userId = u.user_id and h.Id = req.helpId ";
 
 
-	if(isset($_GET["distance_range"]) && $_GET["distance_range"] != '' )
-	{
+	
 		$distanceFilter = isset($_GET["distance_range"]) ? $_GET["distance_range"] : 5;
 		$longitude_low = $long - ($distanceFilter / 100);
 		$longitude_high = $long + ($distanceFilter / 100);
 		$latitude_low = $lat - ($distanceFilter / 100);
 		$latitude_high = $lat + ($distanceFilter / 100);
 		$where = " and req.longitude between " . $longitude_low . " and " . $longitude_high . " and req.latitude between " . $latitude_low . " and " . $latitude_high;
-	}
+	
     
 	
 	// Filtering logic
