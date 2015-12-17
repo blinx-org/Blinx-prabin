@@ -2,6 +2,7 @@
 include_once './libs/const.php';
 $_pageid = 113;
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>   
@@ -9,9 +10,39 @@ $_pageid = 113;
         $_TITLE = "My Request Service";
         include_once './tags/common/head.php';
         ?>
+		 <!-- end:tagline -->
+     
+        <!-- end:copyright -->
+        <?php include_once './tags/common/scripts.php'; ?>
     </head>
-
-    <body>
+	<script>
+	 function UpateRequest() 
+        {
+		$.ajax({
+					type: "POST",
+					url:"/blinx/libs/acceptance.php",
+					async:false,
+					dataType :"json",
+					data: 
+					{
+						action : 'update_request',
+						status : '<?php echo $_POST['status'] ?>',
+						vid : <?php echo $_POST['vid'] ?>,
+						reqID : <?php echo $_POST['reqid'] ?>,
+						Uid : <?php echo $_POST["usrid"] ?>
+					},
+					success: function (msg) 
+					{
+						console.log(msg);
+					},
+					error : function(error) {
+						console.log(error);
+					},
+					
+                    });
+	};
+	</script>
+    <body onload="UpateRequest()">
         <?php include_once './tags/global_header/header.php'; ?>
         <div class="heads" style="background: url(resources/img/bag-banner-1.jpg) center center;">
             <div class="container">
@@ -56,6 +87,7 @@ $_pageid = 113;
                 <div class="row">
                     <div class="col-md-12">
                         <div class="alert alert-success" role="alert">Scan the QR code to get the route.</div>
+						<div class="alert alert-success" role="alert"><?php echo  $output ?></div>
                     </div>
                 </div>
                 <?php
@@ -86,9 +118,6 @@ $_pageid = 113;
                 ?>
             </div>
         </div>
-        <!-- end:tagline -->
-        <?php include_once './tags/global_header/footer.php'; ?>
-        <!-- end:copyright -->
-        <?php include_once './tags/common/scripts.php'; ?>
+          <?php include_once './tags/global_header/footer.php'; ?>
     </body>
 </html>
