@@ -3,6 +3,7 @@
 // This is the API, 2 possibilities: show the app list or show a specific app by id.
 // This would normally be pulled from a database but for demo purposes, I will be hardcoding the return values.
 date_default_timezone_set('Asia/Kolkata');
+
 function update_Accept_request() {
     $date = date('Y-m-d H:i:s');
     $data['Status'] = array(
@@ -25,7 +26,6 @@ function update_Accept_request() {
         $query_log="INSERT INTO t_help_request_log(Id,UserId ,Datetime,Status,VolunteerId,Mid) ".
             " VALUES ( ".$reqId .",".$UsrId.",'".$date."','".$status."',".$vid.",".$mId.")";
         include './dbconnection.php';
-    
     $conn = mysqli_connect($host, $user, $pass, $database) or die("Error " . mysqli_error($link));
     mysqli_begin_transaction($conn, MYSQLI_TRANS_START_READ_WRITE);
     $value = mysqli_query($conn, $query);
@@ -43,7 +43,8 @@ function update_Accept_request() {
             mysqli_rollback($conn);
         }
         mysqli_close($conn);
-        echo json_encode($DbStatus);
+       return json_encode($DbStatus);
+		//return $query;
         //return $data['Status'];
     }
 }
@@ -101,7 +102,7 @@ function create_request() {
               }
         }
         //echo $sql;
-        echo json_encode($DbStatus);
+        //echo json_encode($DbStatus);
         //return $data['Status'];
     }
 }
@@ -143,7 +144,7 @@ $value = "An error has occurred";
 if (isset($_POST["action"]) && in_array($_POST["action"], $possible_url)) {
     switch ($_POST["action"]) {
         case "update_request":
-            update_Accept_request();
+            echo update_Accept_request();
             break;
         case "put_ratings" :
             insert_ratings();
@@ -154,7 +155,9 @@ if (isset($_POST["action"]) && in_array($_POST["action"], $possible_url)) {
             break;
     }
     }
-//echo create_request();
-//exit(json_encode($value));	
+	else
+	{
+		return "NI";
+	}
 exit;
 ?>
