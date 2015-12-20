@@ -40,6 +40,10 @@ function update_Accept_request() {
         }
         else
         {
+			foreach($DbStatus as $key=>$bal) {
+                    $DbStatus[$key]['DBStatus']="0";
+                    $DbStatus[$key]['Message']="Failed to run query";
+              }
             mysqli_rollback($conn);
         }
         mysqli_close($conn);

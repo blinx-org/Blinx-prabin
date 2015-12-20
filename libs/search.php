@@ -172,8 +172,9 @@ function run_query() {
 		$latitude_low = $lat - ($distanceFilter / 100);
 		$latitude_high = $lat + ($distanceFilter / 100);
 		$where = " and req.longitude between " . $longitude_low . " and " . $longitude_high . " and req.latitude between " . $latitude_low . " and " . $latitude_high;
-	
-    
+		
+		$status=isset($_GET["status"]) ? $_GET["status"] : "'P'";
+        $where = $where . " and req.status in ( " . $status . ") ";
 	
 	// Filtering logic
     if (isset($_GET["service_type"]) && $_GET["service_type"] != '') {
@@ -231,9 +232,7 @@ function run_query() {
     if (isset($_GET["mode"]) && $_GET["mode"] != '') {
         $where = $where . " and req.mode in ( " . $_GET["help_mode"] . ") ";
     }
-    if (isset($_GET["status"]) && $_GET["status"] != '') {
-        $where = $where . " and req.status in ( " . $_GET["status"] . ") ";
-    }
+    
     //sort order comes here
     if (isset($_GET["order"]) && isset($_GET["order"]) != '') {
         if (isset($_GET["order"]) == 'asc') {
