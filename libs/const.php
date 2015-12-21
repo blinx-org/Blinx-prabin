@@ -14,6 +14,7 @@ define("URL_SERVICE", "services.php");
 //
 define("URL_SIGNIN", "signin.php");
 define("URL_JOIN", "join.php");
+define("URL_VREQUESTS", "vrequests.php");
 
 
 
