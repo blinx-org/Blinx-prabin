@@ -6,7 +6,7 @@ function get_app_by_id() {
 }
 function get_volunteer_requests()
 {
-	echo volunteer_requests();
+	return volunteer_requests();
 }
 function get_all_requests()
 {
@@ -126,18 +126,27 @@ function volunteer_requests()
 {
 	 // including db connection details into search backend
     include_once 'dbconnection.php';
-	$vid = $_GET["vid"];
-	 $conn = mysqli_connect($host, $user, $pass, $database) or die("Error " . mysqli_error($link));
+	$vid = isset($_GET["vid"]) ? $_GET["vid"] :'';
+	if($vid!='')
+	{
+		 $conn = mysqli_connect($host, $user, $pass, $database) or die("Error " . mysqli_error($link));
     $query = "SELECT  h.Id, h.Description, u.first_name, u.last_name, u.mobile_number, u.gender," .
 	" u.user_id, req.Id, req.Message,req.Address,req.Location,req.Createddate,req.Requesteddate,req.latitude,".
-	"req.longitude,req.duration,req.Accepteddate,req.status FROM  t_help_request req, m_user u , f_help h ".
-	"where req.userId = u.user_id and h.Id = req.helpId and req.VolunteerId=".$vid."";
+	"req.longitude,req.duration,reqlog.Datetime,req.status,s.Description as statusDesc FROM  t_help_request req,
+    t_help_request_log reqlog, f_request_status s, m_user u, f_help h ".
+	"where req.userId = u.user_id and h.Id = req.helpId and req.status=s.Status and req.VolunteerId='".$vid."'";
 	$result = mysqli_query($conn, $query);
 	$data['requests'] = array();
 	 while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
         array_push($data['requests'], $row);
     }
-	echo json_encode($data['requests']);
+	return json_encode($data['requests']);
+	//return $query;
+	}
+	else
+	{
+		return $query;
+	}
 }
 
 /**
