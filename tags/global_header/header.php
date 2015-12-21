@@ -23,6 +23,7 @@
                 <li <?php echo ($_pageid == 6) ? 'class="active"' : '' ?>><a href="<?php echo URL_SERVICE ?>">Services</a></li>
                 <li><a href="<?php echo URL_SIGNIN ?>">Login</a></li>
                 <li><a href="<?php echo URL_JOIN ?>">Join Us</a></li>
+                <li><a href="<?php echo URL_VREQUESTS ?>">Requests</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle <?php echo (($_pageid == 2) || ($_pageid == 1)) ? 'class="active"' : '' ?>" data-toggle="dropdown">ABOUT<b class="caret"></b></a>
                     <ul class="dropdown-menu">
