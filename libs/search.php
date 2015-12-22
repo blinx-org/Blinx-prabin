@@ -131,7 +131,7 @@ function volunteer_requests()
 	{
 		 $conn = mysqli_connect($host, $user, $pass, $database) or die("Error " . mysqli_error($link));
     $query = "SELECT  h.Id, h.Description, u.first_name, u.last_name, u.mobile_number, u.gender," .
-	" u.user_id, req.Id, req.Message,req.Address,req.Location,req.Createddate,req.Requesteddate,req.latitude,".
+	" u.user_id, req.Id as reqID, req.Message,req.Address,req.Location,req.Createddate,req.Requesteddate,req.latitude,".
 	"req.longitude,req.duration,reqlog.Datetime,req.status,s.Description as statusDesc FROM  t_help_request req,
     t_help_request_log reqlog, f_request_status s, m_user u, f_help h ".
 	"where req.userId = u.user_id and h.Id = req.helpId and req.status=s.Status and req.VolunteerId='".$vid."'";
@@ -173,7 +173,7 @@ function run_query() {
 		$latitude_high = $lat + ($distanceFilter / 100);
 		$where = " and req.longitude between " . $longitude_low . " and " . $longitude_high . " and req.latitude between " . $latitude_low . " and " . $latitude_high;
 		
-		$status=isset($_GET["status"]) ? $_GET["status"] : "'P'";
+		$status=isset($_GET["status"]) ? $_GET["status"] : "'P,C'";
         $where = $where . " and req.status in ( " . $status . ") ";
 	
 	// Filtering logic
@@ -328,4 +328,5 @@ if (isset($_GET["action"]) && in_array($_GET["action"], $possible_url)) {
             $value = get_all_requests();
             break;
     }
+	echo $value;
 }
