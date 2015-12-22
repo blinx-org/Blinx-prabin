@@ -173,7 +173,7 @@ function run_query() {
 		$latitude_high = $lat + ($distanceFilter / 100);
 		$where = " and req.longitude between " . $longitude_low . " and " . $longitude_high . " and req.latitude between " . $latitude_low . " and " . $latitude_high;
 		
-		$status=isset($_GET["status"]) ? $_GET["status"] : "'P,C'";
+		$status=isset($_GET["status"]) ? $_GET["status"] : "'P'";
         $where = $where . " and req.status in ( " . $status . ") ";
 	
 	// Filtering logic
