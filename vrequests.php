@@ -15,8 +15,72 @@ $_pageid = 113;
         <!-- end:copyright -->
         <?php include_once './tags/common/scripts.php'; ?>
     </head>
+	<style type="text/css">
+		#table1 td:hover {
+			cursor: pointer;
+		}
+	</style>
+
 	<script>
-		function updateTable()
+	$(document).ready(function(){
+		$.ajax({
+					type: "GET",
+					url:"/blinx/libs/search.php",
+					async:false,
+					dataType :"json",
+					data: 
+					{
+						action : 'volunteer_requests',
+						vid : '12'
+					},
+					success: function (msg) 
+					{
+						console.log(msg);
+						if (msg) 
+						{
+							$.each(msg, function(key, value) 
+							{
+								$("#table1").append(
+										"<tr>"+
+										"<td><a href=cancel.php?id="+ value.reqID+">Link</a></td>"+
+										"<td>"+ value.first_name+ " "+value.last_name+"</td>"+
+										"<td>" + value.statusDesc + "</td>"+
+										"<td>" + value.Requesteddate + "</td>"+
+										"<td>" + value.Datetime + "</td>"+
+										"</tr>");
+							});
+							
+						}
+						else 
+						{
+							//TODO Display No Rocords message.
+							console.log("error");
+						}
+					},
+					error : function(error) {
+						//TODO Display Technical issue so not able to get the history.
+						console.log(error);
+					},
+					
+                });
+				 // Hide the first cell for JavaScript enabled browsers.
+				  $('#table1 td:first-child').hide();
+
+				  // Apply a class on mouse over and remove it on mouse out.
+				  //$('#table1 tr').hover(function ()
+				  //{
+					//$(this).toggleClass('Highlight');
+				  //});
+			  
+				  // Assign a click handler that grabs the URL 
+				  // from the first cell and redirects the user.
+				  $('#table1 tr').click(function ()
+				  {
+					location.href = $(this).find('td a').attr('href');
+				  });
+			});
+	
+		/*function updateTable()
 		{
 			$.ajax({
 					type: "GET",
@@ -33,31 +97,33 @@ $_pageid = 113;
 						console.log(msg);
 						if (msg) 
 						{
-							$.each(msg, function(key, line) 
+							$.each(msg, function(key, value) 
 							{
 								$("#table1").append(
 										"<tr>"+
-										"<td>" + line.first_name +" "+line.last_name  + "</td>"+
-										"<td>" + line.statusDesc + "</td>"+
-										"<td>" + line.Requesteddate + "</td>"+
-										"<td>" + line.Datetime + "</td>"+
+										"<td>"+ value.first_name+ " "+value.last_name+"</td>"+
+										"<td>" + value.statusDesc + "</td>"+
+										"<td>" + value.Requesteddate + "</td>"+
+										"<td>" + value.Datetime + "</td>"+
 										"</tr>");
 							});
 							
 						}
 						else 
 						{
+							//TODO Display No Rocords message.
 							console.log("error");
 						}
 					},
 					error : function(error) {
+						//TODO Display Technical issue so not able to get the history.
 						console.log(error);
 					},
 					
                 });
-		}
+		};*/
 	</script>
-    <body onload="updateTable()">
+    <body>
         <?php include_once './tags/global_header/header.php'; ?>
         <div class="heads" style="background: url(resources/img/bag-banner-1.jpg) center center;">
             <div class="container">
