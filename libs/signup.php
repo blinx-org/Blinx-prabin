@@ -1,10 +1,10 @@
 <?php
 date_default_timezone_set('Asia/Kolkata');
-$firstname = isset($_POST["firstname"])?$_POST["firstname"]:'';
-$lastname = isset($_POST["lastname"])?$_POST["firstname"]:'';
+$firstname = isset($_POST["fname"])?$_POST["fname"]:'';
+$lastname = isset($_POST["lname"])?$_POST["lname"]:'';
 $email = isset($_POST["email"])?$_POST["email"]:'';
 $phone = isset($_POST["phone"])?$_POST["phone"]:'';
-$pwd = isset($_POST["paswd"])?$_POST["paswd"]:'';
+$pwd = isset($_POST["passwd"])?$_POST["passwd"]:'';
 $place1= isset($_POST["latitude"])?$_POST["latitude"]:'';
 $place2= isset($_POST["longitude"])?$_POST["longitude"]:'';
 		$data['Status'] = array(

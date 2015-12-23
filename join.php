@@ -315,7 +315,7 @@ $_pageid = 113;
         </div>
         <div class="page-content">
             <div class="container">
-                <form method="POST"  class="form-horizontal" id="regform" action="" onsubmit="return validateForm()">
+                <form method="POST"  class="form-horizontal" id="regform" action="/blinx/libs/signup.php" onsubmit="return validateForm()">
 					<div class="col-md-3"></div>
 					<div class="col-md-6" style="Background-color: #F8F8F8;">
 					   <div class="control-group">
@@ -379,6 +379,8 @@ $_pageid = 113;
 											 id="autocomplete"
 											 name="autocomplete"
 											 placeholder="Current Place of Residence">
+										<input type="text" type="hidden" value="" id="latitude" />
+										<input type="text" type="hidden" value="" id="longitude" />
 								  </div>
 								</div>
 							<div class="control-group" style="margin-top:20px">
