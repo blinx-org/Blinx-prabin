@@ -130,24 +130,48 @@ function volunteer_requests()
 	if($vid!='')
 	{
 		 $conn = mysqli_connect($host, $user, $pass, $database) or die("Error " . mysqli_error($link));
-    $query = "SELECT  h.Id, h.Description, u.first_name, u.last_name, u.mobile_number, u.gender," .
-	" u.user_id, req.Id as reqID, req.Message,req.Address,req.Location,req.Createddate,req.Requesteddate,req.latitude,".
-	"req.longitude,req.duration,reqlog.Datetime,req.status,s.Description as statusDesc FROM  t_help_request req,
-    t_help_request_log reqlog, f_request_status s, m_user u, f_help h ".
-	"where req.userId = u.user_id and h.Id = req.helpId and req.status=s.Status and req.VolunteerId='".$vid."'";
-	$result = mysqli_query($conn, $query);
-	$data['requests'] = array();
-	 while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-        array_push($data['requests'], $row);
-    }
-	return json_encode($data['requests']);
-	//return $query;
+			$query ="SELECT 
+					h.Id,
+					h.Description,
+					u.first_name,
+					u.last_name,
+					u.mobile_number,
+					u.gender,
+					u.user_id,
+					req.Id AS reqID,
+					req.Message,
+					req.Address,
+					req.Location,
+					req.Createddate,
+					req.Requesteddate,
+					req.latitude,
+					req.longitude,
+					req.duration,
+					reqlog.Datetime,
+					reqlog.status,
+					s.Description AS statusDesc
+				FROM
+					t_help_request req left outer join t_help_request_log reqlog on req.Id=reqlog.Id
+					left outer join f_request_status s on s.Status=reqlog.Status
+					left outer join m_user u on req.UserId=u.user_id
+					left outer join f_help h on h.Id=req.HelpId
+				WHERE
+						req.VolunteerId ='".$vid."' and reqlog.VolunteerId='".$vid."'";
+			
+
+				$result = mysqli_query($conn, $query);
+				$data['requests'] = array();
+				 while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+					array_push($data['requests'], $row);
+				}
+				return json_encode($data['requests']);
+				//return $query;
+				}
+				else
+				{
+					return $query;
+				}
 	}
-	else
-	{
-		return $query;
-	}
-}
 
 /**
  * 
@@ -173,7 +197,7 @@ function run_query() {
 		$latitude_high = $lat + ($distanceFilter / 100);
 		$where = " and req.longitude between " . $longitude_low . " and " . $longitude_high . " and req.latitude between " . $latitude_low . " and " . $latitude_high;
 		
-		$status=isset($_GET["status"]) ? $_GET["status"] : "'P'";
+		$status=isset($_GET["status"]) ? $_GET["status"] : "'P','C'";
         $where = $where . " and req.status in ( " . $status . ") ";
 	
 	// Filtering logic
