@@ -42,7 +42,7 @@ $_pageid = 113;
 							{
 								$("#table1").append(
 										"<tr>"+
-										"<td><a href=cancel.php?id="+ value.reqID+">Link</a></td>"+
+										"<td><a href=accept.php?id="+ value.reqID+"&status="+ value.Status+">Link</a></td>"+
 										"<td>"+ value.first_name+ " "+value.last_name+"</td>"+
 										"<td>" + value.statusDesc + "</td>"+
 										"<td>" + value.Requesteddate + "</td>"+
