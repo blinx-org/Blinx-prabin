@@ -66,6 +66,7 @@ $_pageid = 112;
 								if($data["Status"]=="A" && $reqDate>$today )
 								{
 									?>
+									<input value="C" name="status" type="hidden"/>
 									<button type="submit" class="btn btn-success btn-larges ">Cancel</button>
 									<?php
 								}
