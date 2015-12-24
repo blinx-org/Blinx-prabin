@@ -16,8 +16,8 @@ $_pageid = 113;
 	<style type="text/css">
 	</style>
 	<script>
-		var latitude='';
-		var longitude='';
+		var lati='';
+		var lngi='';
         function initialize()
 		{
 			var input = document.getElementById('autocomplete');
@@ -32,12 +32,14 @@ $_pageid = 113;
 				}, function(results, status) {
 					if (status === google.maps.GeocoderStatus.OK) 
 					{
-						latitude=results[0].geometry.location.lat();    
-						longitude=results[0].geometry.location.lng(); 
-						
+						lati=results[0].geometry.location.lat();    
+						lngi=results[0].geometry.location.lng(); 
+						$('#latitude').val(lati);
+						$('#longitude').val(lngi);
 					}
 				});
             });
+			
         };
 		function validateForm()
 		{
@@ -379,8 +381,19 @@ $_pageid = 113;
 											 id="autocomplete"
 											 name="autocomplete"
 											 placeholder="Current Place of Residence">
-										<input type="text" type="hidden" value="" id="latitude" />
-										<input type="text" type="hidden" value="" id="longitude" />
+										<input name="latitude"  id="latitude" type="hidden" />
+										<input  name="longitude" id="longitude" type="hidden"/>
+								  </div>
+								</div>
+								<div class="control-group" style="margin-top:20px">
+							  <div class="controls">
+									  <input type="text"
+											 class="input-xlarge form-control"
+											 style="Height:30px;width:90%;margin-left:45px;
+												   border: 1px solid;  border-radius: 4px"
+											 id="address"
+											 name="address"
+											 placeholder="address">
 								  </div>
 								</div>
 							<div class="control-group" style="margin-top:20px">
