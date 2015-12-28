@@ -72,7 +72,7 @@ $address=isset($_POST["address"])?$_POST["address"]:'';
 							{
 								foreach($DbStatus as $key=>$bal) {
 									$DbStatus[$key]['DBStatus']="0";
-									$DbStatus[$key]['Message']="Success";
+									$DbStatus[$key]['Message']="Error occured";
 								}
 							}
 							else
