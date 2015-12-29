@@ -23,10 +23,11 @@ $_pageid = 113;
 
   	$(document).ready(function()
         {
-            $("#message").hide();
+            //$("#message").hide();
         });
         function showerrormessage(message) {
             $("#message").text(message);
+			$("#message").show();
         }
         function validateform()
         {
@@ -34,18 +35,21 @@ $_pageid = 113;
             var password = $("#password").val();   
             if(username=='')
             {
-                $("#message").text("Please enter username");
-                $("#message").show();
+                //$("#message").text("Please enter username");
+                //$("#message").show();
+				showerrormessage("Please enter username");
                 return false;
             }
             else if(password=='')
             {
-                $("#message").text("Please enter password");
+                //$("#message").text("Please enter password");
+				showerrormessage("Please enter username");
                 return false;
             }
             else if(username=='' || password=='')
             {
-                $("#message").text("Please enter valid credentials");
+                //$("#message").text("Please enter valid credentials");
+				showerrormessage("Please enter username");
                 return false;
             }
         };
@@ -88,11 +92,31 @@ $_pageid = 113;
                                 </div>     
                                 <div style="padding-top:30px" class="panel-body" >
                                     <div style="display:none" id="login-alert" class="alert alert-danger col-md-12"></div>
-                                    <form id="loginform" class="form-horizontal" role="form" action="" method="POST" onsubmit="return validateform()">
+                                    <form id="loginform" class="form-horizontal" action="" method="POST" onsubmit="return validateform()">
                                         <p class="alert-danger" id="message">
-                                          <script>
-                                            this.text("AAA")
-                                          </script>
+                                           <script>
+											showerrormessage
+											(
+											<?php 
+												if($status!='')
+												{
+													if($status[0]['DBStatus']=="0")
+													{
+														echo "'"."Sorry technical issue not able to login"."'";
+													}
+													else if($status[0]['DBStatus']=="2")
+													{
+														echo "'".$status[0]['Message']."'";
+													}
+													else
+													{
+														echo '';
+													}
+												}
+											?>
+											);
+								
+										   </script>
                                         </p> 
                                         <div style="margin-bottom: 5px" class="input-group">
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
