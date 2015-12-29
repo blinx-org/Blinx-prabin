@@ -28,23 +28,22 @@ if($login=="Login")
       //$status=preg_match('/^[0-9]+$/',$username);
       if(preg_match('/^[0-9]+$/',$username))
       {
-        //$sql1="select count(*) as count from m_volunteer where mobile_number='".$username."'"; 
-        $sql1="select count(*) as count from f_help"; 
+        $sql1="select count(*) as count from m_volunteer where mobile_number='".$username."'"; 
+        //$sql1="select count(*) as count from f_help"; 
       }
       else
       {
         $sql1="select count(*) as count from m_volunteer where email_id='".$username."'"; 
       }
-      //$result = mysqli_query($conn,$sql1);
       $result = mysqli_query($conn, $sql1);
       if (!$result) 
       {
         $status=$host. $user. $pass. $database;
-          /*foreach($DbStatus as $key=>$bal) 
+          foreach($DbStatus as $key=>$bal) 
           {
                 $DbStatus[$key]['DBStatus']="0";
-                $DbStatus[$key]['Message']=$password.$sql1;
-          }*/
+                $DbStatus[$key]['Message']="Failed to Run".$sql1;
+          }
       }
       else
       {
@@ -53,18 +52,18 @@ if($login=="Login")
           {
                 if(preg_match('/^[0-9]+$/',$username))
                 {
-                  $sql2="select count(*) as count from m_volunteer1 where mobile_number='".$username."' and pwd='".$password."'";  
+                  $sql2="select count(*) as count from m_volunteer where mobile_number='".$username."' and pwd='".$password."'";  
                 }
                 else
                 {
-                  $sql2="select count(*) as count from m_volunteer1 where email_id='".$username."' and pwd='".$password."'";   
+                  $sql2="select count(*) as count from m_volunteer where email_id='".$username."' and pwd='".$password."'";   
                 }
                 $result1=mysqli_query($conn,$sql2);
                 if (!$result1) 
                 {
                         foreach($DbStatus as $key=>$bal) {
                     $DbStatus[$key]['DBStatus']="0";
-                    $DbStatus[$key]['Message']=$password."B";
+                    $DbStatus[$key]['Message']="Failed to Run".$sql2;
                       }
                 } 
                 else
@@ -82,8 +81,8 @@ if($login=="Login")
                     else 
                     {
                            foreach($DbStatus as $key=>$bal) {
-                        $DbStatus[$key]['DBStatus']="0";
-                        $DbStatus[$key]['Message']=$password."C";
+                        $DbStatus[$key]['DBStatus']="2";
+                        $DbStatus[$key]['Message']="Invalid Credentials";
                           } 
                     }
                 }
@@ -91,8 +90,8 @@ if($login=="Login")
           else
           {
             foreach($DbStatus as $key=>$bal) {
-                    $DbStatus[$key]['DBStatus']="0";
-                    $DbStatus[$key]['Message']="userdoesnotexist";
+                    $DbStatus[$key]['DBStatus']="2";
+                    $DbStatus[$key]['Message']="User Does not Exist";
                       }
           }
 
@@ -107,4 +106,3 @@ else
   $status='';
 }
 ?>		
-
