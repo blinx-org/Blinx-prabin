@@ -11,15 +11,14 @@ function get_volunteer_requests()
 function get_all_requests()
 {
 	$value=all_requests();
-	echo json_encode($value);
+	return json_encode($value);
 }
 
 function all_requests()
 {
 	 // including db connection details into search backend
     include_once 'dbconnection.php';
-
-   
+  
     $where='';
     $conn = mysqli_connect($host, $user, $pass, $database) or die("Error " . mysqli_error($link));
     $query = "SELECT  h.Id, h.Description, u.first_name, u.last_name, u.mobile_number, u.gender, u.user_id, req.Id as reqID, req.Message,req.Address,req.Location,req.Createddate,req.Requesteddate,req.latitude,req.longitude,req.duration FROM  t_help_request req, m_user u , f_help h where req.userId = u.user_id and h.Id = req.helpId ";
@@ -89,7 +88,7 @@ function all_requests()
     }
     if (isset($_GET["mode"]) && $_GET["mode"] != '') {
         $where = $where . " and req.mode in ( " . $_GET["help_mode"] . ") ";
-    }
+    }   
     if (isset($_GET["status"]) && $_GET["status"] != '') {
         $where = $where . " and req.status in ( " . $_GET["status"] . ") ";
     }

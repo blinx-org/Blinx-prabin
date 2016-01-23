@@ -11,6 +11,10 @@ $_pageid = 113;
         include_once './tags/common/head.php';
         ?>
 		<?php include_once './tags/common/scripts.php'; ?>
+		<?php
+            include_once('./libs/signup.php');
+            //include('./libs/login.php'); // Includes Login Script
+        ?>
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
     </head>
 	<style type="text/css">
@@ -41,6 +45,10 @@ $_pageid = 113;
             });
 			
         };
+        function showerrormessage(message) {
+            $("#message").text(message);
+			$("#message").show();
+        }
 		function validateForm()
 		{
 			var firstname = $("#fname").val();
@@ -74,19 +82,19 @@ $_pageid = 113;
 			if (fld.value == "") {
 				fld.style.background = 'Yellow';
 				error = "You didn't enter a username.\n";
-				alert(error);
+				showerrormessage(error);
 				return false;
 
 			} else if ((fld.value.length < 5) || (fld.value.length > 12)) {
 				fld.style.background = 'Yellow';
 				error = "The username is the wrong length.\n";
-				alert(error);
+				showerrormessage(error);
 				return false;
 
 			} else if (illegalChars.test(fld.value)) {
 				fld.style.background = 'Yellow';
 				error = "The username contains illegal characters.\n";
-				alert(error);
+				showerrormessage(error);
 				return false;
 
 			} else {
@@ -102,25 +110,25 @@ $_pageid = 113;
 			if (fld == "") {
 				fld.style.background = 'Yellow';
 				error = "You didn't enter a password.\n";
-				alert(error);
+				showerrormessage(error);
 				return false;
 		 
 			} else if ((fld.length < 7) || (fld.length > 15)) {
 				error = "The password is the wrong length. \n";
 				fld.style.background = 'Yellow';
-				alert(error);
+				showerrormessage(error);
 				return false;
 		 
 			} else if (illegalChars.test(fld)) {
 				error = "The password contains illegal characters.\n";
 				fld.style.background = 'Yellow';
-				alert(error);
+				showerrormessage(error);
 				return false;
 		 
 			} else if ( (fld.search(/[a-zA-Z]+/)==-1) || (fld.search(/[0-9]+/)==-1) ) {
 				error = "The password must contain at least one numeral.\n";
 				fld.style.background = 'Yellow';
-				alert(error);
+				showerrormessage(error);
 				return false;
 		 
 			} else {
@@ -138,7 +146,7 @@ $_pageid = 113;
 			}
 			else
 			{
-				alert('Username must have alphabet characters only');
+				showerrormessage('Username must have alphabet characters only');
 				return false;
 			}
 		};
@@ -151,7 +159,7 @@ $_pageid = 113;
 			}
 			else
 			{
-				alert('User address must have alphanumeric characters only');
+				showerrormessage('User address must have alphanumeric characters only');
 				return false;
 			}
 		};
@@ -173,126 +181,12 @@ $_pageid = 113;
 			var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
 			if (!filter.test(email.value)) {
-			alert('Please provide a valid email address');
+			showerrormessage('Please provide a valid email address');
 			email.focus;
 			return false;
 			}
 		}
 	</script>
-	<script>
-			/*$.validator.addMethod('mypassword', function(value, element) 
-			{
-				return this.optional(element) || (value.match(/[a-zA-Z]/) && value.match(/[0-9]/));
-			},
-			'Password must contain at least one numeric and one alphabetic character.');
-            $(document).ready(function()
-            {
-                 $('#regform').validate({
-                rules: 
-                {
-                        fname:
-                        {
-                                required: true,
-                                minlength: 2,
-                                maxlength: 50
-                        },
-                        lname:
-                        {
-                                required: true,
-                                minlength: 2,
-                                maxlength: 50
-                        },
-                        email:
-                        {
-                                required: true,
-                                minlength: 2,
-                                maxlength: 50
-                        },
-                        phone: 
-                        {
-                            required: true,
-                            minlength: 10
-                        },
-                        passwd: 
-                        {
-                            required: true,
-                            minlength: 6,
-                            maxlength: 10,
-                            mypassword:true
-                        },
-                        conpasswd:
-                        {
-                            required: true,
-                            minlength: 6,
-                            maxlength: 10,
-                            equalTo: "#passwd"
-                        },
-                        autocomplete:
-                        {
-                            required: true,
-                        },
-                },
-                messages: 
-                {
-                    fname: { required:"Firstname is required" ,regex:"Only Characters allowed" },
-                    lname: { required:"Lastname is required" ,regex:"Only Characters allowed" },
-                    email: { required:"Email is required" ,regex:"Oops! Not a valid Email!" },
-                    phone: { required:"Phone Number Required.",minlength:"Please enter valid phonenumber"},
-                    passwd: { required:"Password is required"},
-                    conpasswd: { required:"Confirm password is required"},
-                    autocomplete:{required:"Current place of residence is required"}
-                },
-                errorClass:"invalid",
-                validClass: "success",
-                errorElement: "label",
-                submitHandler: function() 
-                {
-                var firstname1= $("#fname").val();
-                var lastname1= $("#lname").val();
-                var phone1= $("#phone").val();
-                var email1= $("#email").val();
-                var pwd1= $("#passwd").val();
-                var dataString = 'firstname='+ firstname1+ '&lastname='+ lastname1+ 
-                        '&phone=' + phone1 + '&email=' + email1+
-                        '&latitude='+ latitude+ '&longitude='+ longitude+
-                        '&paswd=' +  pwd1;
-                        alert(dataString);
-                        $.ajax({
-                                type: "POST",
-                                url: "/Blinx/php/signupprocess.php",
-                                data: dataString,
-                                cache: false,
-                                success: function(msg)
-                                    {
-                                        if(msg.trim()=="2")
-                                        {
-                                            alert("Already Registered");
-                                        }
-                                        if(msg.trim()=="0")
-                                        {
-                                            alert("Failed to  Registered");
-                                        }
-                                        if(msg.trim()=="1")
-                                        {
-                                            alert("Registered successfully");
-                                        }
-                                        $("#firstname").val('');
-                                        $("#lastname").val('');
-                                        $("#phone").val('');
-                                        $("#useremail").val('');
-                                        $("#passwd").val('');
-                                        $("#conpasswd").val('');
-                                        $("#autocomplete").val('');
-                                    },
-                                    error: function() 
-                                    {
-                                        alert('Registration not successful');
-                                    },
-                                });
-
-            }
-        });*/
-    </script> 
     <style>
         label.invalid
         {
@@ -317,7 +211,7 @@ $_pageid = 113;
         </div>
         <div class="page-content">
             <div class="container">
-                <form method="POST"  class="form-horizontal" id="regform" action="/blinx/libs/signup.php" onsubmit="return validateForm()">
+                <form method="POST"  class="form-horizontal" id="regform" action="" onsubmit="return validateForm()">
 					<div class="col-md-3"></div>
 					<div class="col-md-6" style="Background-color: #F8F8F8;">
 					   <div class="control-group">
@@ -325,6 +219,31 @@ $_pageid = 113;
 														font-weight: bold;
 														">Join Us</h3>
 						</div>
+						<p class="alert-danger" id="message" >
+                                           <script>
+											showerrormessage
+											(
+											<?php 
+												if($status!='')
+												{
+													if($status[0]['DBStatus']=="0")
+													{
+														$sql=$status[0]['Message'];
+														echo "'".$sql."'";
+													}
+													else if($status[0]['DBStatus']=="2")
+													{
+														echo "'".$status[0]['Message']."'";
+													}
+													else
+													{
+														echo '';
+													}
+												}
+											?>
+											);
+										   </script>
+                                        </p> 
 						<div class="control-group" style="margin-top:10px">
 							<div class="controls">
 								<input type="text" class="input-xlarge form-control"
@@ -396,6 +315,7 @@ $_pageid = 113;
 											 placeholder="address">
 								  </div>
 								</div>
+								<input id="signup" type="hidden" name="signup" value="Signup">
 							<div class="control-group" style="margin-top:20px">
 							  <div class="controls">
 							   <button type="submit" class="btn btn-success submit" style="Height:30px;width:90%;margin-left:45px;

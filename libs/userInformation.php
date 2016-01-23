@@ -33,33 +33,13 @@ function run_query($_reqId) {
  * 
  * @return array
  */
-function getAllList($_id) {
-
-    // including db connection details into search backend
-    include_once 'dbconnection.php';
-
-    $conn = mysqli_connect($host, $user, $pass, $database) or die("Error " . mysqli_error($link));
-    $query = "SELECT   *  FROM  t_help_request req, m_user u , f_help h  where req.userId = u.user_id and h.Id = req.helpId and req.userId = $_id;";
-
-    $result = mysqli_query($conn, $query);
-    if (!$result) {
-        echo "Could not successfully run query ($query) from DB: " . mysql_error();
-        exit;
-    }
-    //
-    $data["request"] = array();
-    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-        array_push($data["request"], $row);
-    }
-    return $data;
-}
 function getUserInformation($_id) {
 
     // including db connection details into search backend
     include_once 'dbconnection.php';
 
     $conn = mysqli_connect($host, $user, $pass, $database) or die("Error " . mysqli_error($link));
-    $query = "SELECT   *  FROM  m_user usr usr.user_Id = $_id;";
+    $query = "SELECT   *  FROM  m_user req.user_Id = $_id;";
 
     $result = mysqli_query($conn, $query);
     if (!$result) {

@@ -118,32 +118,31 @@ function change_passsword() {
         $oldPassword=$row["Password"];
 		if($oldPassword==$pwdold)
 		{
-        $query = "Update m_user SET pwd='".$nwpwd."' where user_id=". $Uid."";
-       $query_log="INSERT INTO m_usr_log(UsrId,CUD_Mid ,Datetime,Status) ".
-					" VALUES ( ".$Uid .",".$mid.",'".$date."','U')";
-		include_once 'dbconnection.php';
-		$conn = mysqli_connect($host, $user, $pass, $database) or die("Error " . mysqli_error($link));
-		mysqli_begin_transaction($conn, MYSQLI_TRANS_START_READ_WRITE);
-		$value = mysqli_query($conn, $query);
-		$result=mysqli_query($conn, $query_log);
-        if($value && $result )
-        {
-            mysqli_commit($conn);
-            foreach($DbStatus as $key=>$bal) {
-                    $DbStatus[$key]['DBStatus']=$value;
-                    $DbStatus[$key]['Message']="Success";
-              }
+            $query = "Update m_user SET pwd='".$nwpwd."' where user_id=". $Uid."";
+           $query_log="INSERT INTO m_usr_log(UsrId,CUD_Mid ,Datetime,Status) ".
+    					" VALUES ( ".$Uid .",".$mid.",'".$date."','U')";
+    		include_once 'dbconnection.php';
+    		$conn = mysqli_connect($host, $user, $pass, $database) or die("Error " . mysqli_error($link));
+    		mysqli_begin_transaction($conn, MYSQLI_TRANS_START_READ_WRITE);
+    		$value = mysqli_query($conn, $query);
+    		$result=mysqli_query($conn, $query_log);
+            if($value && $result )
+            {
+                mysqli_commit($conn);
+                foreach($DbStatus as $key=>$bal) {
+                        $DbStatus[$key]['DBStatus']=$value;
+                        $DbStatus[$key]['Message']="Success";
+                  }
+            }
+            else
+            {
+                mysqli_rollback($conn);
+            }	
+            mysqli_close($conn);
+    		echo json_encode($DbStatus);
         }
-        else
-        {
-            mysqli_rollback($conn);
-        }	
-        mysqli_close($conn);
-		echo json_encode($DbStatus);
     }
 }
-
-
 function update_query($query) {
     include './dbconnection.php';
     
@@ -161,13 +160,16 @@ function update_query($query) {
     return $result;
 }
 
-$possible_url = array("vconfirm", "bconfirm","vupdate","bupdate","vchangpass","bchangepass");
+$possible_url = array("vconfirm", "bconfirm","vupdate","bupdate","vchangpass","bchangepass","userInfo");
 
 $value = "An error has occurred";
+//getUserInformation();
 //$value = update_ratings();
 //return JSON array
-if (isset($_POST["action"]) && in_array($_POST["action"], $possible_url)) {
-    switch ($_POST["action"]) {
+if (isset($_POST["action"]) && in_array($_POST["action"], $possible_url)) 
+{
+    switch ($_POST["action"]) 
+    {
         case "vconfirm":
             blind_confirm();
             break;
@@ -177,18 +179,59 @@ if (isset($_POST["action"]) && in_array($_POST["action"], $possible_url)) {
         case "vupdate":
             create_request();
             break;
-		case "bupdate":
+	case "bupdate":
             update_usr_details();
             break;
-		case "vchangpass":
+	case "vchangpass":
             change_passsword();
             break;
-		case "bchangepass":
+	case "bchangepass":
             create_request();
+        case "userInfo":
+            getUserInformation();
             break;
-    }
+        }
     }
 //echo create_request();
 //exit(json_encode($value));	
-exit;
+function getUserInformation() {
+    // including db connection details into search backend
+    //session_id($username);
+    session_start();
+    //$id='9538088668';
+    $id=$_SESSION['login_user'];
+    if($id!='')
+    {
+        $path=getcwd();
+        include '.\libs\dbconnection.php';
+        $conn = mysqli_connect($host, $user, $pass, $database) or die("Error " . mysqli_error($conn));
+        $query = "SELECT * FROM  m_volunteer v where v.mobile_number = '".$id."'";
+        //$query = "SELECT  *  FROM  m_volunteer";
+
+        $result = mysqli_query($conn, $query);
+        if (!$result) {
+            $error=mysqli_error($result);
+            mysqli_close($conn);
+            echo "Could not successfully run query ($query) from DB: " . mysqli_error($conn);
+        }
+        else 
+        {
+            $data = array();
+            while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) 
+            {
+                array_push($data, $row);
+            }
+            mysqli_close($conn);
+        }
+        //
+        //$abc=$data;
+        //$def=json_encode($abc);
+        return $data;
+    }
+    else
+    {
+        return '';
+    }
+    
+}
 ?>

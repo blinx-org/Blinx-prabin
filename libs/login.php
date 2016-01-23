@@ -1,6 +1,6 @@
 <?php
 date_default_timezone_set('Asia/Kolkata');
-session_start(); // Starting Session
+// Starting Session
 $username = isset($_POST["username"])?$_POST["username"]:'';
 $password = isset($_POST["password"])?$_POST["password"]:'';
 $login = isset($_POST["signin"])?$_POST["signin"]:'';
@@ -8,7 +8,6 @@ $DbStatus='';
 $status=$login;
 if($login=="Login")
 {
-  $status='kkkk';
   $data['Status'] = array(
           array("DBStatus" => "2", "Message" => "Values are Empty")
               );
@@ -53,10 +52,12 @@ if($login=="Login")
                 if(preg_match('/^[0-9]+$/',$username))
                 {
                   $sql2="select count(*) as count from m_volunteer where mobile_number='".$username."' and pwd='".$password."'";  
+                  $query = "SELECT * FROM  m_volunteer v where v.mobile_number = '".$username."'";
                 }
                 else
                 {
                   $sql2="select count(*) as count from m_volunteer where email_id='".$username."' and pwd='".$password."'";   
+                  $query = "SELECT * FROM  m_volunteer v where v.email_id = '".$username."'";
                 }
                 $result1=mysqli_query($conn,$sql2);
                 if (!$result1) 
@@ -71,17 +72,29 @@ if($login=="Login")
                     $value = mysqli_fetch_object($result1)->count; 
                     if(intval($value)==1)
                     {
-                      $_SESSION['login_user']=$username;
-                            foreach($DbStatus as $key=>$bal) {
-                      $DbStatus[$key]['DBStatus']="1";
-                      $DbStatus[$key]['Message']=$password;
-                      header("Location: ./index.php");
+                        session_start();
+                        $result2=mysqli_query($conn,$query);
+                        $data = array();
+                        while ($row = mysqli_fetch_array($result2, MYSQLI_ASSOC)) 
+                        {
+                            array_push($data, $row);
+                        }
+                        $_SESSION['vid']=$data[0]['volunteer_id'];
+                        $_SESSION['email']=$data[0]['email_id'];
+                        $_SESSION['mobile']=$data[0]['mobile_number'];
+                        $_SESSION['name']=$data[0]['first_name'];
+                        foreach($DbStatus as $key=>$bal) 
+                        {
+                            $DbStatus[$key]['DBStatus']="1";
+                            $DbStatus[$key]['Message']=$password;
+                            header("Location: ./index.php");
                         }
                     }
                     else 
                     {
                            foreach($DbStatus as $key=>$bal) {
                         $DbStatus[$key]['DBStatus']="2";
+                        //$DbStatus[$key]['Message']="Invalid Credentials"."BBB";
                         $DbStatus[$key]['Message']="Invalid Credentials";
                           } 
                     }

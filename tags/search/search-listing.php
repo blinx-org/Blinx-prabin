@@ -18,13 +18,24 @@
   [duration] => 1
   )
  */
+$vId=$_SESSION['vid'];
 ?>
+<script>
+    function OnClick()
+    {
+        $vid='<?php echo $vId; ?>';
+        if((!isset($vId) || trim($vId)===''))
+        {
+            alert("Pleaase Login to accept request.")            
+        }
+    };
+</script>
 <div class="bs-callout bs-callout-info">
     <h4  style="padding-right: 70px;">
         <?php
         echo $request["first_name"] . " " . $request["last_name"]
         ?>
-        <a href="accept.php?id=<?php echo $request["reqID"] ?>&status=<?php echo 'A' ?>"class="btn btn-success pull-right" style="margin-right: -70px;margin-top: -14px;">Accept</a>
+        <a onclick="OnClick()" href="accept.php?id=<?php echo $request["reqID"] ?>&status=<?php echo 'A' ?>"class="btn btn-success pull-right" style="margin-right: -70px;margin-top: -14px;">Accept</a>
     </h4>
     <p>
         <b><?php echo $request["Description"] ?></b>  service
@@ -39,3 +50,4 @@
         <?php echo $request["reqID"] ?>
     </p>
 </div>
+    

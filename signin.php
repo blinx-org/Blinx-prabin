@@ -27,7 +27,7 @@ $_pageid = 113;
         });
         function showerrormessage(message) {
             $("#message").text(message);
-			$("#message").show();
+            $("#message").show();
         }
         function validateform()
         {
@@ -49,7 +49,7 @@ $_pageid = 113;
             else if(username=='' || password=='')
             {
                 //$("#message").text("Please enter valid credentials");
-				showerrormessage("Please enter username");
+		showerrormessage("Please enter username");
                 return false;
             }
         };
@@ -106,6 +106,7 @@ $_pageid = 113;
 													}
 													else if($status[0]['DBStatus']=="2")
 													{
+                                                        $abc=$status[0]['Message'];
 														echo "'".$status[0]['Message']."'";
 													}
 													else

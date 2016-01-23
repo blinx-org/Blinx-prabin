@@ -9,17 +9,20 @@ $place1= isset($_POST["latitude"])?$_POST["latitude"]:'';
 $place2= isset($_POST["longitude"])?$_POST["longitude"]:'';
 $location=isset($_POST["autocomplete"])?$_POST["autocomplete"]:'';
 $address=isset($_POST["address"])?$_POST["address"]:'';
-		$data['Status'] = array(
+$signup = isset($_POST["signup"])?$_POST["signup"]:'';
+if($signup=="Signup")
+{
+	$data['Status'] = array(
         array("DBStatus" => "2", "Message" => "Values are Empty")
             );
 		$DbStatus=$data['Status'];		
 		if($firstname=='' || $lastname=='' || $email==''|| $phone=='' || $place1=='' || $place2==''||$pwd==''||$location==''||$address=='')
 		{
-			echo json_encode($data['Status']);;
+			$status=$data['Status'];
 		}
 		else
 		{
-			include './dbconnection.php';
+			include '.\libs\dbconnection.php';
 			$conn = mysqli_connect($host ,$user ,$pass ,$database ) or die("Error " . mysqli_error($link)); 
 			$sql1="select count(*)  as count from m_volunteer where mobile_number='".$phone."' or email_id='".$email."'";
 			$result = mysqli_query($conn,$sql1);
@@ -72,7 +75,7 @@ $address=isset($_POST["address"])?$_POST["address"]:'';
 							{
 								foreach($DbStatus as $key=>$bal) {
 									$DbStatus[$key]['DBStatus']="0";
-									$DbStatus[$key]['Message']="Error occured";
+									$DbStatus[$key]['Message']=$sql;
 								}
 							}
 							else
@@ -81,7 +84,7 @@ $address=isset($_POST["address"])?$_POST["address"]:'';
 									$DbStatus[$key]['DBStatus']="1";
 									$DbStatus[$key]['Message']=$sql;
 								}
-								header("Location: ../aftersignin.php");
+								header("Location: ./aftersignin.php");
 							}
 					}
 				}
@@ -94,7 +97,11 @@ $address=isset($_POST["address"])?$_POST["address"]:'';
 				}
 		
 			}
-			echo json_encode($DbStatus);
+			$status=$DbStatus;
 		}
-	
+}
+else
+{
+
+}		
 ?>		
