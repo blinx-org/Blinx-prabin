@@ -1,6 +1,8 @@
 <?php
 include_once './libs/const.php';
 $_pageid = 112;
+session_start();
+$vid=$_SESSION['vid'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +51,7 @@ $_pageid = 112;
 						<form action="myrequest.php" method="POST">
 							<input value=" <?php echo $data["reqID"]?>" name="reqid" type="hidden"/>
 							<input value=" <?php echo $data["Id"]?>" name="usrid" type="hidden"/>
-							<input value="12" name="vid" type="hidden"/>
+							<input value=" <?php echo $vid?>" name="vid" type="hidden"/>
 							<?php
 							if($_GET['status']=="A")
 							{

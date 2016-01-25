@@ -18,15 +18,17 @@
   [duration] => 1
   )
  */
+session_start();
 $vId=$_SESSION['vid'];
 ?>
 <script>
     function OnClick()
     {
         $vid='<?php echo $vId; ?>';
-        if((!isset($vId) || trim($vId)===''))
+        if($vid =='')
         {
-            alert("Pleaase Login to accept request.")            
+            alert("Pleaase Login to accept request.");
+            return false;
         }
     };
 </script>
@@ -35,7 +37,7 @@ $vId=$_SESSION['vid'];
         <?php
         echo $request["first_name"] . " " . $request["last_name"]
         ?>
-        <a onclick="OnClick()" href="accept.php?id=<?php echo $request["reqID"] ?>&status=<?php echo 'A' ?>"class="btn btn-success pull-right" style="margin-right: -70px;margin-top: -14px;">Accept</a>
+        <a onclick="return OnClick()" href="accept.php?id=<?php echo $request["reqID"] ?>&status=<?php echo 'A' ?>"class="btn btn-success pull-right" style="margin-right: -70px;margin-top: -14px;">Accept</a>
     </h4>
     <p>
         <b><?php echo $request["Description"] ?></b>  service

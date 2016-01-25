@@ -211,123 +211,118 @@ $_pageid = 113;
         </div>
         <div class="page-content">
             <div class="container">
-                <form method="POST"  class="form-horizontal" id="regform" action="" onsubmit="return validateForm()">
-					<div class="col-md-3"></div>
-					<div class="col-md-6" style="Background-color: #F8F8F8;">
-					   <div class="control-group">
-						   <h3 class="secHeading" style="text-align: center;
-														font-weight: bold;
-														">Join Us</h3>
-						</div>
-						<p class="alert-danger" id="message" >
-                                           <script>
-											showerrormessage
-											(
-											<?php 
-												if($status!='')
-												{
-													if($status[0]['DBStatus']=="0")
-													{
-														$sql=$status[0]['Message'];
-														echo "'".$sql."'";
-													}
-													else if($status[0]['DBStatus']=="2")
-													{
-														echo "'".$status[0]['Message']."'";
-													}
-													else
-													{
-														echo '';
-													}
-												}
-											?>
-											);
-										   </script>
-                                        </p> 
-						<div class="control-group" style="margin-top:10px">
-							<div class="controls">
-								<input type="text" class="input-xlarge form-control"
-									   style="Height:30px;width:90%;margin-left:45px;
-									   border: 1px solid;  border-radius: 4px"
-										id="fname" 
-										name="fname"
-										maxlength="50" value="" tabindex="1"
-										autocomplete="on"
-										placeholder="First Name">
-							</div>
-						</div>
-						<div class="control-group" style="margin-top:20px">
-							<input type="text" class="input-xlarge form-control"
-											   style="Height:30px;width:90%;border: 1px solid;
-											   margin-left:45px;
-											   border-radius: 4px" 
-											   id="lname" name="lname" placeholder="Last Name">
-						</div>
-						<div class="control-group" style="margin-top:20px">
-							<div class="controls">
-									<input type="text" class="input-xlarge form-control" 
-										   style="Height:30px;width:90%;margin-left:45px;
-										   border: 1px solid;  border-radius: 4px;" id="email" name="email" placeholder="Email">
-							</div>
-						</div>
-						<div class="control-group" style="margin-top:20px">
-							<div class="controls">
-									<input type="text" class="input-xlarge form-control"
-											   style="Height:30px;width:90%;margin-left:45px;
-											   border: 1px solid;  border-radius: 4px" id="phone" name="phone" placeholder="Mobile Number">
-							</div>
-						</div>
-							<div class="control-group" style="margin-top:20px">
-								<div class="controls">
-										<input type="Password" id="passwd" 
-												   style="Height:30px;width:90%;margin-left:45px;
-												   border: 1px solid;  border-radius: 4px" class="input-xlarge form-control" name="passwd" placeholder="Password">
-								</div>
-							</div>
-							<div class="control-group" style="margin-top:20px">
-								<div class="controls">
-										<input type="Password" id="conpasswd" 
-												   style="Height:30px;width:90%;margin-left:45px;
-												   border: 1px solid;  border-radius: 4px" class="input-xlarge form-control" name="conpasswd" placeholder="Re-enter Password">
-								</div>
-							</div>
-								<div class="control-group" style="margin-top:20px">
-							  <div class="controls">
-									  <input type="text"
-											 class="input-xlarge form-control"
-											 style="Height:30px;width:90%;margin-left:45px;
-												   border: 1px solid;  border-radius: 4px"
-											 id="autocomplete"
-											 name="autocomplete"
-											 placeholder="Current Place of Residence">
-										<input name="latitude"  id="latitude" type="hidden" />
-										<input  name="longitude" id="longitude" type="hidden"/>
-								  </div>
-								</div>
-								<div class="control-group" style="margin-top:20px">
-							  <div class="controls">
-									  <input type="text"
-											 class="input-xlarge form-control"
-											 style="Height:30px;width:90%;margin-left:45px;
-												   border: 1px solid;  border-radius: 4px"
-											 id="address"
-											 name="address"
-											 placeholder="address">
-								  </div>
-								</div>
-								<input id="signup" type="hidden" name="signup" value="Signup">
-							<div class="control-group" style="margin-top:20px">
-							  <div class="controls">
-							   <button type="submit" class="btn btn-success submit" style="Height:30px;width:90%;margin-left:45px;
-												   border: 1px solid;  border-radius: 4px" >JOIN US</button>
-							  </div>
-							   </div>
-								<p class="" style="margin-top:10px; margin-left:50px " >
-						By signing up, I agree to the <a href="/termsOfUse" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy</a>.
-							   </p>
-					</div>
-					<div class="col-md-3"></div>
-				</form>
+                <form method="POST"  class="section" id="regform" action="" onsubmit="return validateForm()">
+            <div class="col-md-3"></div>
+            <div class="col-md-6" style="Background-color: #F8F8F8;">
+               <div class="control-group">
+                       <h3 class="secHeading" style="text-align: center;font-weight: bold;">Join Us</h3>
+                </div>
+                <p class="alert-danger" id="message" >
+                <script>
+                    showerrormessage
+                    (
+                    <?php 
+                            if($status!='')
+                            {
+                                    if($status[0]['DBStatus']=="0")
+                                    {
+                                            $sql=$status[0]['Message'];
+                                            echo "'".$sql."'";
+                                    }
+                                    else if($status[0]['DBStatus']=="2")
+                                    {
+                                            echo "'".$status[0]['Message']."'";
+                                    }
+                                    else
+                                    {
+                                            echo '';
+                                    }
+                            }
+                    ?>
+                    );
+                </script>
+                </p> 
+                    <div class="section fieldset">
+                            <i class="fa fa-user icon"></i>
+                            <input type="text" style="Height:30px;width:45%;border: 1px solid;  border-radius: 4px" name="firstName" maxlength="50" value="" tabindex="1" id="fname" title="First Name" alt="Name" placeholder="First Name"/>
+                            <input type="text" style="Height:30px;width:45%;border: 1px solid;  border-radius: 4px" name="lastName" maxlength="50" value="" tabindex="2" id="lname" title="Last Name" placeholder="Last Name"/>
+                    </div>
+                    <!--<div class="control-group" style="margin-top:10px">
+                        <div class="controls">
+                            <input type="text" class="input-xlarge form-control"
+                                       style="Height:30px;width:90%;margin-left:45px;
+                                       border: 1px solid;  border-radius: 4px"
+                                            id="fname" 
+                                            name="fname"
+                                            maxlength="50" value="" tabindex="1"
+                                            autocomplete="on"
+                                            placeholder="First Name">
+                        </div>
+                    </div>
+                    <div class="control-group" style="margin-top:20px">
+                            <input type="text" class="input-xlarge form-control"
+                                                               style="Height:30px;width:90%;border: 1px solid;
+                                                               margin-left:45px;
+                                                               border-radius: 4px" 
+                                                               id="lname" name="lname" placeholder="Last Name">
+                    </div>-->
+                        <div class="section fieldset" style="margin-top:20px">
+                            <i class="fa fa-envelope-o icon"></i>
+                            <input type="text" 
+                                       style="Height:30px;width:90%;
+                                       border: 1px solid;  border-radius: 4px;" id="email" name="email" placeholder="Email">
+                        </div>
+                        <div class="section fieldset" style="margin-top:20px">
+                            <i class="fa fa-envelope-o icon"></i>
+                            <input type="text" style="Height:30px;width:90%;
+                                               border: 1px solid;  border-radius: 4px" 
+                                               id="phone" name="phone" placeholder="Mobile Number">
+                        </div>
+                        <div class="section fieldset" style="margin-top:20px">
+                            <i class="fa fa-key icon"></i>
+                                <input type="Password" id="passwd" 
+                                        style="Height:30px;width:45%;
+                                                   border: 1px solid;  border-radius: 4px"  name="passwd" placeholder="Password">
+                                <input type="Password" id="conpasswd" 
+                                    style="Height:30px;width:45%;
+                                    border: 1px solid;  border-radius: 4px" 
+                                    name="conpasswd" placeholder="Re-enter Password">
+                        </div>
+
+                        <div class="section fieldset" style="margin-top:20px">
+                            <i class="fa fa-key icon"></i>
+                            <!--<i class="fa fa-map-marker icon"></i>-->
+                            <input type="text"
+                                           style="Height:30px;  width:90%;
+                                                     border: 1px solid;  border-radius: 4px"
+                                           id="autocomplete"
+                                           name="autocomplete"
+                                           placeholder="Current Place of Residence">
+                                  <input name="latitude"  id="latitude" type="hidden" />
+                                  <input  name="longitude" id="longitude" type="hidden"/>
+                        </div>
+                            <div class="section fieldset" style="margin-top:20px">
+                                <i class="fa fa-key icon"></i>
+                                <input type="text"
+                                               style="Height:30px;width:90%;
+                                                         border: 1px solid;  border-radius: 4px"
+                                               id="address"
+                                               name="address"
+                                               placeholder="address">
+
+                            </div>
+                            <input id="signup" type="hidden" name="signup" value="Signup">
+                            <div class="section fieldset" style="margin-top:20px">
+
+                               <button type="submit" class="btn btn-success submit" style="Height:30px;width:90%;
+                                                                       border: 1px solid;  border-radius: 4px" >JOIN US</button>
+                               </div>
+                                        <p class="" style="margin-top:10px; margin-left:50px " >
+                        By signing up, I agree to the <a href="/termsOfUse" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy</a>.
+                                   </p>
+                </div>
+                    <div class="col-md-3"></div>
+		</form>
             </div>
         </div>
           <?php include_once './tags/global_header/footer.php'; ?>

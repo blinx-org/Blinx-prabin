@@ -1,4 +1,4 @@
-<div data-width="558" class="fb-page" data-href="https://www.facebook.com/Blinx-1013687085339547/?ref=hl" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true"></div>
+<!--<div data-width="558" class="fb-page" data-href="https://www.facebook.com/Blinx-1013687085339547/?ref=hl" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true"></div>-->
 <div id="fb-root"></div>
 <script>(function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
