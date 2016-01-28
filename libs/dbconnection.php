@@ -31,17 +31,17 @@ class DB {
 	private function close($connection)
 	{
 		if(!mysqli_close($connection)){
-			echo "Connection close failed.";
+			return "Connection close failed.";
 		}
 	}
-	public function runQuery($query) {
+	public function runSelectQuery($query) {
 		$conn= $this -> connect();
 		if($conn!='')
 		{
 			$result = $conn -> query($query);
 			if (!$result) 
 			{
-				echo "Could not successfully run query ($query) from DB: " . mysql_error();
+				return "Could not successfully run query ($query) from DB: " . mysql_error();
 				exit;
 			}
 			else
@@ -61,8 +61,30 @@ class DB {
 		}
 		return '';
 	}
-}
+	public function runQuery($query) {
+		$conn= $this -> connect();
+		if($conn!='')
+		{
+			$result = $conn -> query($query);
+			if (!$result) 
+			{
+				return "Could not successfully run query ($query) from DB: " . mysql_error();
+				exit;
+			}
+			else
+			{
+				if($result->affected_rows>=1)
+				{
+					return $result->affected_rows;
+				}
 
+			}
+			return 0;
+		}
+		return 0;
+	}
+}
+?>
 
 
 
