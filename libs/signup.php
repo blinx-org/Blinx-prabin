@@ -1,5 +1,7 @@
 <?php
 date_default_timezone_set('Asia/Kolkata');
+include 'dbconnection.php';
+include 'ChromePhp.php';
 $firstname = isset($_POST["fname"])?$_POST["fname"]:'';
 $lastname = isset($_POST["lname"])?$_POST["lname"]:'';
 $email = isset($_POST["email"])?$_POST["email"]:'';
@@ -12,21 +14,22 @@ $address=isset($_POST["address"])?$_POST["address"]:'';
 $signup = isset($_POST["signup"])?$_POST["signup"]:'';
 if($signup=="Signup")
 {
+	$dbHelper=new DB();
 	$data['Status'] = array(
         array("DBStatus" => "2", "Message" => "Values are Empty")
             );
 		$DbStatus=$data['Status'];		
 		if($firstname=='' || $lastname=='' || $email==''|| $phone=='' || $place1=='' || $place2==''||$pwd==''||$location==''||$address=='')
 		{
+			ChromePhp::log('Hello console!');
 			$status=$data['Status'];
 		}
 		else
 		{
-			include '.\libs\dbconnection.php';
-			$conn = mysqli_connect($host ,$user ,$pass ,$database ) or die("Error " . mysqli_error($link)); 
+			ChromePhp::log('Hello Bonsole!');
 			$sql1="select count(*)  as count from m_volunteer where mobile_number='".$phone."' or email_id='".$email."'";
-			$result = mysqli_query($conn,$sql1);
-			if (!$result) 
+			$result=$dbHelper->runSelectQuery($sql1);
+			if (!is_array($result)&&count($result)<=0) 
 			{
 			  foreach($DbStatus as $key=>$bal) {
                     $DbStatus[$key]['DBStatus']="0";
@@ -36,24 +39,23 @@ if($signup=="Signup")
 			else
 			{
 				
-				$count = mysqli_fetch_object($result)->count; 
+				$count = count($result); 
 				if(intval($count)==0)
 				{
 					$sql2="select COALESCE(MAX(volunteer_id), 0) as id from m_volunteer";
-					$result1=mysqli_query($conn,$sql2);
-					if (!$result1) 
+					$result1=$dbHelper->runSelectQuery($sql2);
+					if (!is_array($result1)&&count($result1)<=0) 
 					{
 						foreach($DbStatus as $key=>$bal) {
 						$DbStatus[$key]['DBStatus']="0";
 						$DbStatus[$key]['Message']="Failed to run query";
 						}
 					} 
-				   else
+					else
 					{
-					   $id = mysqli_fetch_object($result1)->id; 
+					   $id = $result1[0]['id']; 
 					   $bid=intval($id)+1;
 					   $date = date('Y-m-d H:i:s');
-					   
 					   $sql="INSERT INTO m_volunteer "
 								   . "(volunteer_id,"
 								   . "first_name,"
@@ -71,7 +73,8 @@ if($signup=="Signup")
 								   . "( ".$bid.",'".$firstname."',"
 								   . "'".$lastname."','".$email."','".$phone."','".$place1."','".$place2."','".$location."','".$address."',"
 								   . "'C','".$date."','".$pwd."')";
-							if (!mysqli_query($conn,$sql))
+								   $affected=$dbHelper->runSelectQuery($sql);
+							if (!$affected>0)
 							{
 								foreach($DbStatus as $key=>$bal) {
 									$DbStatus[$key]['DBStatus']="0";
@@ -82,7 +85,7 @@ if($signup=="Signup")
 							{
 							   foreach($DbStatus as $key=>$bal) {
 									$DbStatus[$key]['DBStatus']="1";
-									$DbStatus[$key]['Message']=$sql;
+									$DbStatus[$key]['Message']="Success";
 								}
 								header("Location: ./aftersignin.php");
 							}
