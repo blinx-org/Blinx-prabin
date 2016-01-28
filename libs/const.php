@@ -16,6 +16,7 @@ define("URL_SIGNIN", "signin.php");
 define("URL_JOIN", "join.php");
 define("URL_VREQUESTS", "vrequests.php");
 define("URL_LOGOUT", "logout.php");
+define("URL_CHPASS", "changepassword.php");
 
 
 

@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('Asia/Kolkata');
 include 'dbconnection.php';
-include 'ChromePhp.php';
+//include 'ChromePhp.php';
 $firstname = isset($_POST["fname"])?$_POST["fname"]:'';
 $lastname = isset($_POST["lname"])?$_POST["lname"]:'';
 $email = isset($_POST["email"])?$_POST["email"]:'';
@@ -21,12 +21,12 @@ if($signup=="Signup")
 		$DbStatus=$data['Status'];		
 		if($firstname=='' || $lastname=='' || $email==''|| $phone=='' || $place1=='' || $place2==''||$pwd==''||$location==''||$address=='')
 		{
-			ChromePhp::log('Hello console!');
+			//ChromePhp::log('Hello console!');
 			$status=$data['Status'];
 		}
 		else
 		{
-			ChromePhp::log('Hello Bonsole!');
+			//ChromePhp::log('Hello Bonsole!');
 			$sql1="select count(*)  as count from m_volunteer where mobile_number='".$phone."' or email_id='".$email."'";
 			$result=$dbHelper->runSelectQuery($sql1);
 			if (!is_array($result)&&count($result)<=0) 
@@ -39,7 +39,7 @@ if($signup=="Signup")
 			else
 			{
 				
-				$count = count($result); 
+				$count = $result[0]['count']; 
 				if(intval($count)==0)
 				{
 					$sql2="select COALESCE(MAX(volunteer_id), 0) as id from m_volunteer";
@@ -73,7 +73,7 @@ if($signup=="Signup")
 								   . "( ".$bid.",'".$firstname."',"
 								   . "'".$lastname."','".$email."','".$phone."','".$place1."','".$place2."','".$location."','".$address."',"
 								   . "'C','".$date."','".$pwd."')";
-								   $affected=$dbHelper->runSelectQuery($sql);
+								   $affected=$dbHelper->runQuery($sql);
 							if (!$affected>0)
 							{
 								foreach($DbStatus as $key=>$bal) {

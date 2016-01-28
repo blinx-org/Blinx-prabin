@@ -39,8 +39,6 @@ else
             </a>
             <div id="brand" class="visible-lg visible-md">&nbsp;</div>
             <ul class="nav navbar-nav nav-right">
-                
-
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle <?php echo (($_pageid == 2) || ($_pageid == 1)) ? 'class="active"' : '' ?>" data-toggle="dropdown">ABOUT<b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -54,6 +52,7 @@ else
                     <ul class="dropdown-menu">
                         <li <?php echo ($_pageid == 2) ? 'class="active"' : '' ?>><a href="<?php echo URL_HOW_IT_WORK ?>">Profile</a></li>
                         <li><a href="<?php echo URL_VREQUESTS ?>">Requests History</a></li>
+                        <li <?php echo ($_pageid == 1) ? 'class="active"' : '' ?>><a href="<?php echo URL_CHPASS ?>">Change Password</a></li>
                         <li <?php echo ($_pageid == 1) ? 'class="active"' : '' ?>><a href="<?php echo URL_LOGOUT ?>">Logout</a></li>
                     </ul>
                  </li>

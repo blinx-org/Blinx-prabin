@@ -6,10 +6,10 @@ $user = "root";
 $pass = "blinx";
 class DB {
 	
-	protected $db_name = 'test';
-	protected $db_user = 'TCSCS';
-	protected $db_pass = 'tsoltsip13a';
-	protected $db_host = 'localhost';
+	protected $db_name = "blinx";
+	protected $db_user = "root";
+	protected $db_pass = "blinx";
+	protected $db_host = "localhost";
 	
 	// Open a connect to the database.
 	// Make sure this is called on every page that needs to use the database.
@@ -73,10 +73,10 @@ class DB {
 			}
 			else
 			{
-				if($result->affected_rows>=1)
-				{
-					return $result->affected_rows;
-				}
+                            if($conn->affected_rows>=1)
+                            {
+                                return $conn->affected_rows;
+                            }
 
 			}
 			return 0;

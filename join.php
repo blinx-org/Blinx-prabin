@@ -244,8 +244,8 @@ $_pageid = 113;
                 </p> 
                     <div class="section fieldset">
                             <i class="fa fa-user icon"></i>
-                            <input type="text" style="Height:30px;width:45%;border: 1px solid;  border-radius: 4px" name="firstName" maxlength="50" value="" tabindex="1" id="fname" title="First Name" alt="Name" placeholder="First Name"/>
-                            <input type="text" style="Height:30px;width:45%;border: 1px solid;  border-radius: 4px" name="lastName" maxlength="50" value="" tabindex="2" id="lname" title="Last Name" placeholder="Last Name"/>
+                            <input type="text" style="Height:30px;width:45%;border: 1px solid;  border-radius: 4px" name="fname" id="fname" maxlength="50" value="" tabindex="1" id="fname" title="First Name" alt="Name" placeholder="First Name"/>
+                            <input type="text" style="Height:30px;width:45%;border: 1px solid;  border-radius: 4px" name="lname" id="lname" maxlength="50" value="" tabindex="2" id="lname" title="Last Name" placeholder="Last Name"/>
                     </div>
                     <!--<div class="control-group" style="margin-top:10px">
                         <div class="controls">
@@ -262,7 +262,7 @@ $_pageid = 113;
                     <div class="control-group" style="margin-top:20px">
                             <input type="text" class="input-xlarge form-control"
                                                                style="Height:30px;width:90%;border: 1px solid;
-                                                               margin-left:45px;
+                                                               margin-left:45px;    
                                                                border-radius: 4px" 
                                                                id="lname" name="lname" placeholder="Last Name">
                     </div>-->
