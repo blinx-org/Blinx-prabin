@@ -55,50 +55,57 @@ $_pageid = 113;
 			var lastname=$("#lname").val();
 			var mobile = $("#phone").val();
 			var pwd = $("#passwd").val();
+			var cpwd = $("#passwd").val();
 			var uemail = $("#email").val();
-			if(allLetter(firstname))
+			if(validateUsername(firstname,lastname))
 			{
-				if(validatePassword(pwd,5,12))
+				if(allLetter(firstname,lastname))
 				{
-					if(allLetter(lastname))
+					if(checkEmail(uemail))
 					{
-						if(allnumeric(mobile))
+						if(validatePhone(mobile))
 						{
-							if(ValidateEmail(uemail))
+							if(validatePassword(pwd,5,12))
 							{
-								return true;
+								
+								
 							}
 						}
+						
 					}
-				}
+				}	
 			}
 			return false;
 		};
-		function validateUsername(fld) 
+		function validateUsername(fld,fld2) 
 		{
 			var error = "";
 			var illegalChars = /\W/; // allow letters, numbers, and underscores
 
-			if (fld.value == "") {
-				fld.style.background = 'Yellow';
-				error = "You didn't enter a username.\n";
+			if (fld == "") {
+				error = "Please enter first name";
 				showerrormessage(error);
 				return false;
 
-			} else if ((fld.value.length < 5) || (fld.value.length > 12)) {
-				fld.style.background = 'Yellow';
+			}
+			else if (fld2 == "") {
+				error = "Please enter last name";
+				showerrormessage(error);
+				return false;
+
+			}
+			else if ((fld.length < 2) || (fld.length > 30)) {
 				error = "The username is the wrong length.\n";
 				showerrormessage(error);
 				return false;
 
-			} else if (illegalChars.test(fld.value)) {
-				fld.style.background = 'Yellow';
+			} else if (illegalChars.test(fld)) {
 				error = "The username contains illegal characters.\n";
 				showerrormessage(error);
 				return false;
 
 			} else {
-				fld.style.background = 'White';
+				return true;
 			}
 			return true;
 		};
@@ -106,47 +113,66 @@ $_pageid = 113;
 		{
 			var error = "";
 			var illegalChars = /[\W_]/; // allow only letters and numbers
-		 
+			var re = /[0-9]/;
+			var small = /[a-z]/;
+			var caps = /[A-Z]/;
 			if (fld == "") {
-				fld.style.background = 'Yellow';
-				error = "You didn't enter a password.\n";
+				error = "Please enter password.\n";
 				showerrormessage(error);
 				return false;
 		 
-			} else if ((fld.length < 7) || (fld.length > 15)) {
-				error = "The password is the wrong length. \n";
-				fld.style.background = 'Yellow';
+			} else if ((fld.length < 5) || (fld.length > 15)) {
+				error = "Password must contain at least six characters! \n";
 				showerrormessage(error);
 				return false;
 		 
-			} else if (illegalChars.test(fld)) {
-				error = "The password contains illegal characters.\n";
-				fld.style.background = 'Yellow';
+			} else if (!re.test(fld)) {
+				error = "password must contain at least one number (0-9)!\n";
 				showerrormessage(error);
 				return false;
 		 
-			} else if ( (fld.search(/[a-zA-Z]+/)==-1) || (fld.search(/[0-9]+/)==-1) ) {
-				error = "The password must contain at least one numeral.\n";
-				fld.style.background = 'Yellow';
+			} else if (!small.test(fld)) {
+				error = "password must contain at least one lowercase letter (a-z)!\n";
 				showerrormessage(error);
 				return false;
 		 
-			} else {
-				fld.style.background = 'White';
+			}else if (!caps.test(fld)) {
+				error = "password must contain at least one uppercase letter (A-Z)\n";
+				showerrormessage(error);
+				return false;
+		 
+			}
+			else if(conpasswd!=fld)
+			{
+				error = "password and confirm password didn't match\n";
+				showerrormessage(error);
+				return false;
+			}
+			else {
+				return true;
 			}
 		   return true;
 		};
-		function allLetter(uname)
+		function allLetter(fname,lname)
 		{
 			var letters = /^[A-Za-z]+$/;
 			var re = new RegExp(letters);
-			if(uname.match(re))
+			if(fname.match(re))
 			{
 				return true;
 			}
 			else
 			{
-				showerrormessage('Username must have alphabet characters only');
+				showerrormessage('FirstName must have alphabet characters only');
+				return false;
+			}
+			if(lname.match(re))
+			{
+				return true;
+			}
+			else
+			{
+				showerrormessage('LastName must have alphabet characters only');
 				return false;
 			}
 		};
@@ -163,28 +189,43 @@ $_pageid = 113;
 				return false;
 			}
 		};
-		function allnumeric(uzip)
+		function validatePhone(phone)
+		{
+			if(phone=='')
+			{
+				showerrormessage('Please enter Phone Number');
+				return false;
+			}
+			else if(phone!='' && !allnumeric(phone))
+			{
+				showerrormessage('Phone Number must have numeric only');
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+		function allnumeric(number)
 		{
 			var numbers = /^[0-9]+$/;
-			if(uzip.match(numbers))
+			
+			if(number.match(numbers))
 			{
 				return true;
 			}
 			else
 			{
-				alert('ZIP code must have numeric characters only');
 				return false;
 			}
 		};
-		function checkEmail() {
-			var email = document.getElementById('txtEmail');
+		function checkEmail(uemail) {
 			var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-
-			if (!filter.test(email.value)) {
-			showerrormessage('Please provide a valid email address');
-			email.focus;
+			if (!uemail.match(filter)) {
+			showerrormessage('Please enter valid email address');
 			return false;
 			}
+			return true;
 		}
 	</script>
     <style>
