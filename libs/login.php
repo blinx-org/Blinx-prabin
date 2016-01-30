@@ -63,7 +63,7 @@ if($login=="Login")
                   $sql2="select count(*) as count from m_volunteer where email_id='".$username."' and pwd='".$password."'";   
                   $query2 = "SELECT * FROM  m_volunteer v where v.email_id = '".$username."'";
                 }
-				$result1=$dbHelper->runSelectQuery($sql2);
+		$result1=$dbHelper->runSelectQuery($sql2);
                 //$result1=mysqli_query($conn,$sql2);
                 if (!is_array($result1)&&count($result1)<=0) 
                 {

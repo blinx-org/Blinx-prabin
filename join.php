@@ -11,72 +11,95 @@ $_pageid = 113;
         include_once './tags/common/head.php';
         ?>
 		<?php include_once './tags/common/scripts.php'; ?>
-		<?php
-            include_once('./libs/signup.php');
-            //include('./libs/login.php'); // Includes Login Script
-        ?>
+		<?php include_once('./libs/signup.php');?>
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
     </head>
 	<style type="text/css">
-	</style>
-	<script>
+	</style><script>
 		var lati='';
 		var lngi='';
-        function initialize()
+                function initialize()
 		{
-			var input = document.getElementById('autocomplete');
-			var options = {componentRestrictions: {country: 'in'}};
-			var autocomplete=new google.maps.places.Autocomplete(input, options);
-            google.maps.event.addListener(autocomplete,'place_changed', function()
-            {
-                var inputA = document.getElementById('autocomplete').value;
-                var geocoder = new google.maps.Geocoder();
-				geocoder.geocode({
-				'address': inputA
-				}, function(results, status) {
-					if (status === google.maps.GeocoderStatus.OK) 
-					{
-						lati=results[0].geometry.location.lat();    
-						lngi=results[0].geometry.location.lng(); 
-						$('#latitude').val(lati);
-						$('#longitude').val(lngi);
-					}
-				});
-            });
-			
-        };
-        function showerrormessage(message) {
-            $("#message").text(message);
-			$("#message").show();
-        }
+                    var input = document.getElementById('autocomplete');
+                    var options = {componentRestrictions: {country: 'in'}};
+                    var autocomplete=new google.maps.places.Autocomplete(input, options);
+                    google.maps.event.addListener(autocomplete,'place_changed', function()
+                    {
+                        var inputA = document.getElementById('autocomplete').value;
+                        var geocoder = new google.maps.Geocoder();
+                                        geocoder.geocode({
+                                        'address': inputA
+                                        }, function(results, status) {
+                                                if (status === google.maps.GeocoderStatus.OK) 
+                                                {
+                                                        lati=results[0].geometry.location.lat();    
+                                                        lngi=results[0].geometry.location.lng(); 
+                                                        $('#latitude').val(lati);
+                                                        $('#longitude').val(lngi);
+                                                }
+                                        });
+                    });
+                };
+                function showerrormessage(message) 
+                {
+                    $("#message").text(message);
+                    $("#message").show();
+                }
 		function validateForm()
 		{
 			var firstname = $("#fname").val();
 			var lastname=$("#lname").val();
 			var mobile = $("#phone").val();
 			var pwd = $("#passwd").val();
-			var cpwd = $("#passwd").val();
+			var cpwd = $("#conpasswd").val();
 			var uemail = $("#email").val();
+                        var addr = $("#address").val();
+                        var lat = $("#latitude").val();
+                        var lng = $("#longitude").val();
 			if(validateUsername(firstname,lastname))
 			{
-				if(allLetter(firstname,lastname))
-				{
-					if(checkEmail(uemail))
-					{
-						if(validatePhone(mobile))
-						{
-							if(validatePassword(pwd,5,12))
-							{
-								
-								
-							}
-						}
-						
-					}
-				}	
+                            if(allLetter(firstname,lastname))
+                            {
+                                if(checkEmail(uemail))
+                                {
+                                    if(validatePhone(mobile))
+                                    {
+                                        if(validatePassword(pwd,cpwd))
+                                        {
+                                            if(validateLocation(lat,lng))
+                                            {
+                                                if(validateAddress(addr))
+                                                {
+                                                    return true;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }	
 			}
 			return false;
 		};
+                function validateLocation(lat,lng)
+                {
+                    if(lat=='' && lng=='')
+                    {
+                        error = "Please enter Location";
+			showerrormessage(error);
+			return false;
+                    }
+                    return true;
+                }
+                function validateAddress(addr)
+                {
+                    if(addr=='')
+                    {
+                        error = "Please enter address";
+			showerrormessage(error);
+			return false;
+                    }
+                    return true;
+                }
 		function validateUsername(fld,fld2) 
 		{
 			var error = "";
@@ -109,49 +132,48 @@ $_pageid = 113;
 			}
 			return true;
 		};
-		function validatePassword(fld) 
+		function validatePassword(pwd,cpwd) 
 		{
-			var error = "";
-			var illegalChars = /[\W_]/; // allow only letters and numbers
-			var re = /[0-9]/;
-			var small = /[a-z]/;
-			var caps = /[A-Z]/;
-			if (fld == "") {
-				error = "Please enter password.\n";
-				showerrormessage(error);
-				return false;
-		 
-			} else if ((fld.length < 5) || (fld.length > 15)) {
-				error = "Password must contain at least six characters! \n";
-				showerrormessage(error);
-				return false;
-		 
-			} else if (!re.test(fld)) {
-				error = "password must contain at least one number (0-9)!\n";
-				showerrormessage(error);
-				return false;
-		 
-			} else if (!small.test(fld)) {
-				error = "password must contain at least one lowercase letter (a-z)!\n";
-				showerrormessage(error);
-				return false;
-		 
-			}else if (!caps.test(fld)) {
-				error = "password must contain at least one uppercase letter (A-Z)\n";
-				showerrormessage(error);
-				return false;
-		 
-			}
-			else if(conpasswd!=fld)
-			{
-				error = "password and confirm password didn't match\n";
-				showerrormessage(error);
-				return false;
-			}
-			else {
-				return true;
-			}
-		   return true;
+                    var error = "";
+                    var illegalChars = /[\W_]/; // allow only letters and numbers
+                    var re = /[0-9]/;
+                    var small = /[a-z]/;
+                    var caps = /[A-Z]/;
+                    if (pwd == "") {
+                            error = "Please enter password.\n";
+                            showerrormessage(error);
+                            return false;
+
+                    } else if ((pwd.length < 5) || (pwd.length > 15)) {
+                            error = "Password must contain at least six characters! \n";
+                            showerrormessage(error);
+                            return false;
+
+                    } else if (!re.test(pwd)) {
+                            error = "password must contain at least one number (0-9)!\n";
+                            showerrormessage(error);
+                            return false;
+
+                    } else if (!small.test(pwd)) {
+                            error = "password must contain at least one lowercase letter (a-z)!\n";
+                            showerrormessage(error);
+                            return false;
+
+                    }else if (!caps.test(pwd)) {
+                            error = "password must contain at least one uppercase letter (A-Z)\n";
+                            showerrormessage(error);
+                            return false;
+                    }
+                    else if(cpwd!=pwd)
+                    {
+                            error = "password and confirm password didn't match\n";
+                            showerrormessage(error);
+                            return false;
+                    }
+                    else {
+                            return true;
+                    }
+                    return true;
 		};
 		function allLetter(fname,lname)
 		{
@@ -241,7 +263,7 @@ $_pageid = 113;
     </style>
     <body onLoad="initialize()">
         <?php include_once './tags/global_header/header.php'; ?>
-        <div class="heads" style="background: url(resources/img/bag-banner-1.jpg) center center;">
+        <div class="heads" style="background: url(resources/img/bag-banner-1.jpg)">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -263,22 +285,22 @@ $_pageid = 113;
                     showerrormessage
                     (
                     <?php 
-                            if($status!='')
+                        if($status!='')
+                        {
+                            if($status[0]['DBStatus']=="0")
                             {
-                                    if($status[0]['DBStatus']=="0")
-                                    {
-                                            $sql=$status[0]['Message'];
-                                            echo "'".$sql."'";
-                                    }
-                                    else if($status[0]['DBStatus']=="2")
-                                    {
-                                            echo "'".$status[0]['Message']."'";
-                                    }
-                                    else
-                                    {
-                                            echo '';
-                                    }
+                                    $sql=$status[0]['Message'];
+                                    echo "'".$sql."'";
                             }
+                            else if($status[0]['DBStatus']=="2")
+                            {
+                                    echo "'".$status[0]['Message']."'";
+                            }
+                            else
+                            {
+                                    echo '';
+                            }
+                        }
                     ?>
                     );
                 </script>
@@ -318,6 +340,7 @@ $_pageid = 113;
                             <input type="text" style="Height:30px;width:90%;
                                                border: 1px solid;  border-radius: 4px" 
                                                id="phone" name="phone" placeholder="Mobile Number">
+                            <input id="action" type="hidden" name="action" value="signup">
                         </div>
                         <div class="section fieldset" style="margin-top:20px">
                             <i class="fa fa-key icon"></i>

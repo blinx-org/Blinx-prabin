@@ -97,53 +97,68 @@ function update_usr_details() {
 		echo json_encode($DbStatus);
     }
 }
-function change_passsword() {
+function change_passsword() 
+{
+    include 'dbconnection.php';
+    $dbHelper=new DB();
     $data['Status'] = array(
         array("DBStatus" => "2", "Message" => "Values are Empty")
             );
     $DbStatus=$data['Status'];
     $date = date('Y-m-d H:i:s');
-    $Uid = isset($_POST["Uid"]) ? $_POST["Uid"] : '';
-    $pwdold = isset($_POST["status"]) ? $_POST["status"] : '';
-    $nwpwd = isset($_POST["meeting"]) ? $_POST["meeting"] : '';
+    $vid = isset($_POST["vid"]) ? $_POST["vid"] : '';
+    $pwdold = isset($_POST["oldpwd"]) ? $_POST["oldpwd"] : '';
+    $pwdNew = isset($_POST["pwd"]) ? $_POST["pwd"] : '';
     
-    if($Uid=='' || $email=='' || $phone ==''||$helpdId==''||$latitide==''||$logitude=='' )
+    if($vid=='' || $pwdold=='' || $pwdNew =='')
     {
         echo json_encode($data['Status']);;
     }
     else
     {
-        $query = "select pwd as Password from m_user";
-        $value=  update_query($query);
-        $row= mysqli_fetch_array( $value,MYSQLI_ASSOC);
-        $oldPassword=$row["Password"];
-		if($oldPassword==$pwdold)
-		{
-            $query = "Update m_user SET pwd='".$nwpwd."' where user_id=". $Uid."";
-           $query_log="INSERT INTO m_usr_log(UsrId,CUD_Mid ,Datetime,Status) ".
-    					" VALUES ( ".$Uid .",".$mid.",'".$date."','U')";
-    		include_once 'dbconnection.php';
-    		$conn = mysqli_connect($host, $user, $pass, $database) or die("Error " . mysqli_error($link));
-    		mysqli_begin_transaction($conn, MYSQLI_TRANS_START_READ_WRITE);
-    		$value = mysqli_query($conn, $query);
-    		$result=mysqli_query($conn, $query_log);
-            if($value && $result )
-            {
-                mysqli_commit($conn);
+        $query = "select count(*) as count,pwd as password from m_volunteer where mobile_number='".$vid."' and pwd='".$password."'";  
+        $result=$dbHelper->runSelectQuery($query);
+        if (!is_array($result)&&count($result)<=0) 
+        {
+            foreach($DbStatus as $key=>$bal) {
+                  $DbStatus[$key]['DBStatus']="0";
+                  $DbStatus[$key]['Message']=$sql1;
+              }
+        }
+        else
+        {
+            $count = $result[0]['count']; 
+            $pwd = $result[0]['password']; 
+            if(intval($count)==1)
+            {   
                 foreach($DbStatus as $key=>$bal) {
-                        $DbStatus[$key]['DBStatus']=$value;
-                        $DbStatus[$key]['Message']="Success";
-                  }
+                          $DbStatus[$key]['DBStatus']="0";
+                          $DbStatus[$key]['Message']="User Not Available";
+                      }
+            }
+            else if($pwd!=$pwdold )
+            {
+                foreach($DbStatus as $key=>$bal) {
+                          $DbStatus[$key]['DBStatus']="0";
+                          $DbStatus[$key]['Message']="Old Password is not correct.";
+                      }
+            }
+            else if($pwd!=$pwdNew )
+            {
+                foreach($DbStatus as $key=>$bal) {
+                          $DbStatus[$key]['DBStatus']="0";
+                          $DbStatus[$key]['Message']="Old Password and New password cannot be same.";
+                      }
             }
             else
             {
-                mysqli_rollback($conn);
-            }	
-            mysqli_close($conn);
-    		echo json_encode($DbStatus);
+                
+            }
+                
+            }
         }
-    }
 }
+
 function update_query($query) {
     include './dbconnection.php';
     
@@ -162,7 +177,6 @@ function update_query($query) {
 }
 
 $possible_url = array("vconfirm", "bconfirm","vupdate","bupdate","vchangpass","bchangepass","userInfo");
-
 $value = "An error has occurred";
 //getUserInformation();
 //$value = update_ratings();
