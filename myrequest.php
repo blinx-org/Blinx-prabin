@@ -34,7 +34,7 @@ $_pageid = 113;
 					console.log(msg);
 					$data=msg[0];
 					$status=$data["DBStatus"];
-                    if($status=="1")
+                                        if($status=="1")
 					{
 						$("#success").show();
 						$("#failure").hide();
@@ -46,7 +46,7 @@ $_pageid = 113;
 					}
                 },
                 error: function (error) {
-					console.log(error);
+                    console.log(error);
                     $("#success").hide();
                     $("#failure").show();
                 }

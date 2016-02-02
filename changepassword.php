@@ -99,9 +99,7 @@ $vid=$_SESSION['vid'];
     </div>
     <div class='row'>
         <div class='col-sm-4 col-md-offset-4'>
-          <form accept-charset="UTF-8" action="" 
-                class="" id="changepassword" method="post" onsubmit="return validatePassword()">
-              <p class="alert-danger" id="message" >
+            <p class="alert-danger" id="message" >
                 <script>
                     showerrormessage
                     (
@@ -126,6 +124,8 @@ $vid=$_SESSION['vid'];
                     );
                 </script>
                 </p>
+          <form accept-charset="UTF-8" action="" 
+                class="" id="changepassword" method="post" onsubmit="return validatePassword()">
             <div class='form-row'>
               <div class='col-xs-12 form-group required'>
                 <label class='control-label'>Current password</label>

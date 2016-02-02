@@ -1,6 +1,6 @@
 <?php
 date_default_timezone_set('Asia/Kolkata');
-//include 'ChromePhp.php';
+include 'dbconnection.php';
 function signup()
 {
     $firstname = isset($_POST["fname"])?$_POST["fname"]:'';
@@ -81,6 +81,7 @@ function signup()
                                                             $DbStatus[$key]['DBStatus']="0";
                                                             $DbStatus[$key]['Message']=$sql;
                                                     }
+                                                    header("Location: ./aftersignin.php?status=JF");
                                             }
                                             else
                                             {
@@ -88,7 +89,7 @@ function signup()
                                                             $DbStatus[$key]['DBStatus']="1";
                                                             $DbStatus[$key]['Message']="Success";
                                                     }
-                                                    header("Location: ./aftersignin.php");
+                                                    header("Location: ./aftersignin.php?status=JP");
                                             }
                             }
                     }
@@ -179,6 +180,7 @@ function changepasssword()
                                 $DbStatus[$key]['DBStatus']="0";
                                 $DbStatus[$key]['Message']=$sql;
                         }
+                        header("Location: ./aftersignin.php?status=CF");
                 }
                 else
                 {
@@ -186,7 +188,7 @@ function changepasssword()
                                 $DbStatus[$key]['DBStatus']="1";
                                 $DbStatus[$key]['Message']="Success";
                         }
-                        header("Location: ./aftersignin.php");
+                        header("Location: ./aftersignin.php?status=CP");
                 }
             }
              $status=$DbStatus;   
