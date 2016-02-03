@@ -89,6 +89,8 @@ function signup()
                                                             $DbStatus[$key]['DBStatus']="1";
                                                             $DbStatus[$key]['Message']="Success";
                                                     }
+                                                    session_start();
+                                                    $_SESSION['mobile']=$phone;
                                                     header("Location: ./aftersignin.php?status=JP");
                                             }
                             }
@@ -114,7 +116,6 @@ function signup()
 
 function changepasssword()
 {
-    include 'dbconnection.php';
     $dbHelper=new DB();
     $data['Status'] = array(
         array("DBStatus" => "2", "Message" => "Values are Empty")

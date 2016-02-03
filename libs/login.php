@@ -14,14 +14,14 @@ if($login=="Login")
   $data['Status'] = array(
           array("DBStatus" => "2", "Message" => "Values are Empty")
               );
-  $DbStatus=$data['Status'];
+        $DbStatus=$data['Status'];
 	if($username=='' && $password=='' )
 	{
-      foreach($DbStatus as $key=>$bal) 
-          {
+            foreach($DbStatus as $key=>$bal) 
+            {
                 $DbStatus[$key]['DBStatus']="2";
                 $DbStatus[$key]['Message']="Username and Passowrd are empty";
-          }
+            }
 	}
 	else
 	{
