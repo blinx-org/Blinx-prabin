@@ -57,6 +57,7 @@ function signup()
                                $id = $result1[0]['id']; 
                                $bid=intval($id)+1;
                                $date = date('Y-m-d H:i:s');
+                               $rand=rand(100000,100000000);
                                $sql="INSERT INTO m_volunteer "
                                                        . "(volunteer_id,"
                                                        . "first_name,"
@@ -69,13 +70,14 @@ function signup()
                                                        . "address,"
                                                        . "cud,"
                                                        . "create_time,"
+                                                       ."confirmCode,"
                                                        . "pwd)"
                                                        . "VALUES"
                                                        . "( ".$bid.",'".$firstname."',"
                                                        . "'".$lastname."','".$email."','".$phone."','".$place1."','".$place2."','".$location."','".$address."',"
-                                                       . "'C','".$date."','".$pwd."')";
+                                                       . "'C','".$date."','".$rand."','".$pwd."')";
                                                        $affected=$dbHelper->runQuery($sql);
-                                            if (!$affected>0)
+                                            if ($affected==0)
                                             {
                                                     foreach($DbStatus as $key=>$bal) {
                                                             $DbStatus[$key]['DBStatus']="0";
@@ -90,7 +92,10 @@ function signup()
                                                             $DbStatus[$key]['Message']="Success";
                                                     }
                                                     session_start();
+                                                    $_SESSION['vid']=$bid;
+                                                    $_SESSION['email']=$email;
                                                     $_SESSION['mobile']=$phone;
+                                                    $_SESSION['name']=$fname;
                                                     header("Location: ./aftersignin.php?status=JP");
                                             }
                             }

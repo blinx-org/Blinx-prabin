@@ -9,6 +9,7 @@ define("URL_REQUEST", "request.php");
 //
 define("URL_ABOUT", "about.php");
 define("URL_HOW_IT_WORK", "howitworks.php");
+define("URL_FAQ", "faq.php");
 define("URL_CONTACT", "contact.php");
 define("URL_SERVICE", "services.php");
 //

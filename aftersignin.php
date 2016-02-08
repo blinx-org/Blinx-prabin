@@ -25,6 +25,22 @@ $_pageid = 112;
                                 $status=$_GET["status"];
                                 if($status=="JP")
                                 {
+                                 $value=false;
+                                $value1=false;
+                                $included_files=get_included_files();
+                                foreach ($included_files as $filename) {
+                                $pieces = explode("\\", $filename);
+                                $value=in_array("sendmail.php", $pieces);
+                                if($value==true)
+                                {
+                                    $value1=true;
+                                };
+                                };
+                                if(!$value1)
+                                    include '.\sendmail.php';
+                                session_start();
+                                $mobile=$_SESSION['mobile'];
+                                mailto(1,$mobile);
                                 ?>
                                     <div class="row padd20-top-btm">
                                     <div class="col-md-12 text-center">

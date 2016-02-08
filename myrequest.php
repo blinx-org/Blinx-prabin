@@ -31,19 +31,19 @@ $_pageid = 113;
                         },
                 success: function (msg)
                 {
-					console.log(msg);
-					$data=msg[0];
-					$status=$data["DBStatus"];
-                                        if($status=="1")
-					{
-						$("#success").show();
-						$("#failure").hide();
-					}
-					else
-					{
-						$("#success").hide();
-						$("#failure").show();
-					}
+                    console.log(msg);
+                    $data=msg[0];
+                    $status=$data["DBStatus"];
+                    if($status=="1")
+                    {
+                            $("#success").show();
+                            $("#failure").hide();
+                    }
+                    else
+                    {
+                            $("#success").hide();
+                            $("#failure").show();
+                    }
                 },
                 error: function (error) {
                     console.log(error);
@@ -74,16 +74,21 @@ $_pageid = 113;
 						//TODO need to add new 
 						include './libs/request.php';
 						//hard coded till sitn in integration
-						$__data = run_query($_POST['reqid']);
-						$data = $__data["request"][0];
+						$data = run_query($_POST['reqid']);
+						//$data = $__data["request"][0];
 						$status=$_POST['status'];
 						if($status=="A")
 						{
 							include './tags/request/accept.php';
+                                                        include_once 'sendmail.php'; 
+                                                        mailto('2',$_POST['reqid']);
+                            
 						}
 						if($status=="C")
 						{
 							include './tags/request/cancel.php';
+                                                        include_once 'sendmail.php'; 
+                                                        mailto('3',$_POST['reqid']);
 						}
 						?>
 						

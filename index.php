@@ -20,7 +20,8 @@ $_pageid = 3;
                 <div class="row">
                     <div class="col-md-12">
                         <h2>The Site s still under construction.</h2>
-                        <h2>LEND YOUR SIGHT WHEN ALIVE</h2>
+                        <h2>LEND YOUR SIGHT WHEN ALIVE , DONATE YOUR EYES AFTER DEATH</h2>
+                        <h2>YOU WILL BE PLEASANTLY SURPRISED BY THE CHANGES YOU CAN BRING INTO THEIR LIVES.</h2>
                         <p style="text-align:left">Eyes are windows to the world’. This saying brings 
                            out the importance of the healthy vision. Only healthy eyes can 
                            serve as a clean, clear window, through which people can acquire immense knowledge.
@@ -36,7 +37,13 @@ $_pageid = 3;
                            Blind do not demand anyone’s pity. 
                            They just want others’ understanding and willingness to help them in their endeavour to empower 
                            themselves. mainly through education, so that they also can walk along with others as 
-                           equal participants in this colourful life. 
+                           equal participants in this colourful life.<br><br>
+                           BLINX aims to serve as a bridge between the service oriented volunteers and 
+                           the visually challenged who would benefit from their valuable service. 
+                           You can make these disabled as differently able people, by helping them in the academics, 
+                           by reading books, writing exams, by taking classes even from distance, and in so many other ways. 
+                           A visually challenged youngsters  need special and individual attention to understand different 
+                           subjects.  you can be their sight.
                         </p>
                     </div>
                 </div>

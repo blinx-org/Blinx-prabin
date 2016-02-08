@@ -41,8 +41,8 @@ $vid=$_SESSION['vid'];
 				else 
 				{
                     include './libs/request.php';
-                    $__data = run_query($_GET['id']);
-                    $data = $__data["request"][0];
+                    $data = run_query($_GET['id']);
+                    //$data = $__data["request"][0];
                     //TODO: need to fix the query
 					include './tags/request/requestdetail.php';
 					?>

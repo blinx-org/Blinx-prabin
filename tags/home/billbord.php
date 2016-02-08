@@ -13,8 +13,6 @@
                             <div class="carousel-content">
                                 <h2 class="animated fadeInLeftBig text-center text-black">JOIN - CHOOSE - HELP</h2>
                                 <p class="animated rollIn text-black text-center">
-                                    You need not die to help a blind with sight.
-                                    The site is under construction.
                                 </p>  
                             </div>
                         </div> 
@@ -26,10 +24,9 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="carousel-content">
-                                <h3 class="animated fadeInLeftBig text-left">EMPOWER</h3>
+                                <h3 class="animated fadeInLeftBig text-left">Education and exposure empowers</h3>
+                                <h3 class="animated fadeInLeftBig text-left">Courage and confidence,  building blocks  of growth.</h3>
                                 <p class="animated fadeInDownBig text-left"> 
-                                    Together, We Can Transform Lives by Teaching the blind and visually impaired. 
-                                    The site is under construction.
                                 </p>
                             </div>
                         </div>

@@ -278,7 +278,7 @@ $_pageid = 113;
             <div class="col-md-3"></div>
             <div class="col-md-6" style="Background-color: #F8F8F8;">
                <div class="control-group">
-                       <h3 class="secHeading" style="text-align: center;font-weight: bold;">Join Us</h3>
+                       <!--<h3 class="secHeading" style="text-align: center;font-weight: bold;">Join Us</h3>-->
                 </div>
                 <p class="alert-danger" id="message" >
                 <script>
@@ -333,12 +333,12 @@ $_pageid = 113;
                             <i class="fa fa-envelope-o icon"></i>
                             <input type="text" 
                                        style="Height:30px;width:90%;
-                                       border: 1px solid;  border-radius: 4px;" id="email" name="email" placeholder="Email">
+                                       border: 1px solid;  border-radius: 4px;" tabindex="3" id="email" name="email" placeholder="Email">
                         </div>
                         <div class="section fieldset" style="margin-top:20px">
                             <i class="fa fa-envelope-o icon"></i>
                             <input type="text" style="Height:30px;width:90%;
-                                               border: 1px solid;  border-radius: 4px" 
+                                               border: 1px solid;  border-radius: 4px" tabindex="4"
                                                id="phone" name="phone" placeholder="Mobile Number">
                             <input id="action" type="hidden" name="action" value="signup">
                         </div>
@@ -346,10 +346,10 @@ $_pageid = 113;
                             <i class="fa fa-key icon"></i>
                                 <input type="Password" id="passwd" 
                                         style="Height:30px;width:45%;
-                                                   border: 1px solid;  border-radius: 4px"  name="passwd" placeholder="Password">
+                                                   border: 1px solid;  border-radius: 4px" tabindex="5"  name="passwd" placeholder="Password">
                                 <input type="Password" id="conpasswd" 
-                                    style="Height:30px;width:45%;
-                                    border: 1px solid;  border-radius: 4px" 
+                                    style="Height:30px;width:45%; 
+                                    border: 1px solid;  border-radius: 4px" tabindex="6"
                                     name="conpasswd" placeholder="Re-enter Password">
                         </div>
 
@@ -359,7 +359,7 @@ $_pageid = 113;
                             <input type="text"
                                            style="Height:30px;  width:90%;
                                                      border: 1px solid;  border-radius: 4px"
-                                           id="autocomplete"
+                                           id="autocomplete" tabindex="7"
                                            name="autocomplete"
                                            placeholder="Current Place of Residence">
                                   <input name="latitude"  id="latitude" type="hidden" />
@@ -369,17 +369,16 @@ $_pageid = 113;
                                 <i class="fa fa-key icon"></i>
                                 <input type="text"
                                                style="Height:30px;width:90%;
-                                                         border: 1px solid;  border-radius: 4px"
+                                                         border: 1px solid;  border-radius: 4px" tabindex="7"
                                                id="address"
                                                name="address"
                                                placeholder="address">
-
                             </div>
                             <input id="signup" type="hidden" name="signup" value="Signup">
                             <div class="section fieldset" style="margin-top:20px">
 
                                <button type="submit" class="btn btn-success submit" style="Height:30px;width:90%;
-                                                                       border: 1px solid;  border-radius: 4px" >JOIN US</button>
+                                                                       border: 1px solid;  border-radius: 4px" tabindex="8" >JOIN US</button>
                                </div>
                                         <p class="" style="margin-top:10px; margin-left:50px " >
                         By signing up, I agree to the <a href="/termsOfUse" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy</a>.

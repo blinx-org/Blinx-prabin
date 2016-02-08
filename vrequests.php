@@ -1,6 +1,8 @@
 <?php
 include_once './libs/const.php';
 $_pageid = 113;
+session_start();
+$vid=$_SESSION['vid'];
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +33,7 @@ $_pageid = 113;
 					data: 
 					{
 						action : 'volunteer_requests',
-						vid : '12'
+						vid : <?php echo $vid ?>
 					},
 					success: function (msg) 
 					{

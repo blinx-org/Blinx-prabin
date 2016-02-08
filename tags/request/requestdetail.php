@@ -1,7 +1,7 @@
 <div class="row padd20-top-btm">
 	<div class="col-md-12 text-center">
 		<h4>
-			<?php echo $data["first_name"] . " " . $data["last_name"] ?>
+			<?php echo $data['first_name'] . " " . $data['last_name'] ?>
 		</h4>
 		<p>
 			Type of service <b><?php echo $data["Description"] ?></b> 

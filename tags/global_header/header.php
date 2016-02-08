@@ -44,6 +44,7 @@ else
                     <ul class="dropdown-menu">
                         <li <?php echo ($_pageid == 2) ? 'class="active"' : '' ?>><a href="<?php echo URL_HOW_IT_WORK ?>">How it works</a></li>
                         <li <?php echo ($_pageid == 1) ? 'class="active"' : '' ?>><a href="<?php echo URL_CONTACT ?>">Contact</a></li>
+                        <li <?php echo ($_pageid == 45) ? 'class="active"' : '' ?>><a href="<?php echo URL_FAQ ?>">FAQ</a></li>
                     </ul>
                 </li>
                 <?php if($vName!='') { ?> <!-- some hide class or some magic -->
