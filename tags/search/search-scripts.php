@@ -1,6 +1,8 @@
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
 <script type="text/javascript">
     function initialize() {
+        var address=document.getElementById('my-address').style.height;
+        document.getElementById('helpType').style.height=address;
         var address = (document.getElementById('my-address'));
         var autocomplete = new google.maps.places.Autocomplete(address);
         autocomplete.setTypes(['geocode']);
@@ -28,9 +30,13 @@
                 $('[name="long"]').val(results[0].geometry.location.lng());
                 $("#frmSearch").submit();
             } else {
-                alert("Geocode was not successful for the following reason: " + status);
+                //alert("Geocode was not successful for the following reason: " + status);
+                $("#frmSearch").submit();
             }
         });
-    }
+    };
+    function onOptionChange() {
+        $('[name="action"]').val("get_app_online");
+    };
     google.maps.event.addDomListener(window, 'load', initialize);
 </script>

@@ -38,9 +38,8 @@ $_pageid = 112;
                                 };
                                 if(!$value1)
                                     include '.\sendmail.php';
-                                session_start();
-                                $mobile=$_SESSION['mobile'];
-                                mailto(1,$mobile);
+                                
+                                
                                 ?>
                                     <div class="row padd20-top-btm">
                                     <div class="col-md-12 text-center">
@@ -56,6 +55,9 @@ $_pageid = 112;
                                     </div>
                                     </div>
                                 <?php
+                                session_start();
+                                $mobile=$_SESSION['mobile'];
+                                mailto(1,$mobile);
                                 }
                                 else if($status=="JF")
                                 {
