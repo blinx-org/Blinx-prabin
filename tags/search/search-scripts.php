@@ -35,8 +35,12 @@
             }
         });
     };
-    function onOptionChange() {
+    function onOptionChange(option) {
         $('[name="action"]').val("get_app_online");
+        if(option.value=="internet")
+            $('[name="msgtext"]').text("You can help me over internet with skype");
+        else
+            $('[name="msgtext"]').text("You can help by meetinf visuaaly impaired at particular location");
     };
     google.maps.event.addDomListener(window, 'load', initialize);
 </script>
