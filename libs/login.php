@@ -55,12 +55,12 @@ if($login=="Login")
           {
                 if(preg_match('/^[0-9]+$/',$username))
                 {
-                  $sql2="select count(*) as count from m_volunteer where mobile_number='".$username."' and pwd='".$password."'";  
+                  $sql2="select count(*) as count,pwd  from m_volunteer where mobile_number='".$username."'";  
                   $query2 = "SELECT * FROM  m_volunteer v where v.mobile_number = '".$username."'";
                 }
                 else
                 {
-                  $sql2="select count(*) as count from m_volunteer where email_id='".$username."' and pwd='".$password."'";   
+                  $sql2="select count(*) as count,pwd from m_volunteer where email_id='".$username."'";   
                   $query2 = "SELECT * FROM  m_volunteer v where v.email_id = '".$username."'";
                 }
 		$result1=$dbHelper->runSelectQuery($sql2);
@@ -74,13 +74,14 @@ if($login=="Login")
                 } 
                 else
                 {
-                    $value = $result1[0]['count']; 
+                    $value = $result1[0]['count'];
+                    $pwd=$result1[0]['pwd'];
                     if(intval($value)==1)
                     {
                         session_start();
                         $result2=$dbHelper->runSelectQuery($query2);
                         $data = $result2;
-						if (is_array($result2)&&count($result2)>=1) 
+						if (is_array($result2)&&count($result2)>=1&&password_verify($password, $pwd)) 
 						{
 							$_SESSION['vid']=$data[0]['volunteer_id'];
 							$_SESSION['email']=$data[0]['email_id'];

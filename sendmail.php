@@ -1,6 +1,5 @@
 <?php
 $mail=$_GET['mail'];
-mailto($mail,1);
 function mailto($mail,$id)
 {
     $value=false;
@@ -24,7 +23,7 @@ function mailto($mail,$id)
         $result=$dbHelper->runSelectQuery($query);
         $to= $result[0]['email_id'];
         $vid= $result[0]['volunteer_id'];
-        $confirmCode= $result[0]['confirmCode'];
+        $confirmCode= $result[0]['confirmcode'];
         $subject = 'Thanks for joining & Email Verification';
         $headers = "From: blinx.app@gmail.com \r\n";
         $headers .= "Reply-To: email@domain.com \r\n";
@@ -42,7 +41,7 @@ function mailto($mail,$id)
             "I look forward to hearing from you! </P>'";
         $message.='<div style=font-family: Arial;><br/>';
         $message.='click on the below link to verify your account ';
-        $message.="<a href='http://wwww.blinx.org.in/user-confirmation.php?id=".$vid."&email=".$to."&confirmation_code=".$confirmCode."'>click</a>";
+        $message.="<a href=".$_SERVER['SERVER_NAME']."/vconfirmation.php?id=".$vid."&email=".$to."&confirmation_code=".$confirmCode."'>click</a>'";
         $message.='</div>';
         $message.='</body></html>';
         mail($to, $subject, $message, $headers);
@@ -387,5 +386,4 @@ function mailto($mail,$id)
         mail($to, $subject, $message, $headers);
     }
 }
-
 ?>
