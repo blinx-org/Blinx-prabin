@@ -3,19 +3,33 @@ date_default_timezone_set('Asia/Kolkata');
 include 'dbconnection.php';
 function signup()
 {
-    $firstname = isset($_POST["fname"])?$_POST["fname"]:'';
-    $lastname = isset($_POST["lname"])?$_POST["lname"]:'';
-    $email = isset($_POST["email"])?$_POST["email"]:'';
-    $phone = isset($_POST["phone"])?$_POST["phone"]:'';
-    $pwd = isset($_POST["passwd"])?$_POST["passwd"]:'';
-    $place1= isset($_POST["latitude"])?$_POST["latitude"]:'';
-    $place2= isset($_POST["longitude"])?$_POST["longitude"]:'';
-    $location=isset($_POST["autocomplete"])?$_POST["autocomplete"]:'';
-    $address=isset($_POST["address"])?$_POST["address"]:'';
-    $signup = isset($_POST["signup"])?$_POST["signup"]:'';
+    $dbHelper=new DB();
+    $abc=$dbHelper->connect();
+    //$abc->close();
+    /*$firstname = isset($_POST["fname"])? mysqli_real_escape_string($conn,$_POST["fname"]):'';
+    $lastname = isset($_POST["lname"])? mysqli_real_escape_string($conn,$_POST["lname"]):'';
+    $email = isset($_POST["email"])? mysqli_real_escape_string($conn,$_POST["email"]):'';
+    $phone = isset($_POST["phone"])? mysqli_real_escape_string($conn,$_POST["phone"]):'';
+    $pwd = isset($_POST["passwd"])? mysqli_real_escape_string($conn,$_POST["passwd"]):'';
+    $place1= isset($_POST["latitude"])? mysqli_real_escape_string($conn,$_POST["latitude"]):'';
+    $place2= isset($_POST["longitude"])? mysqli_real_escape_string($conn,$_POST["longitude"]):'';
+    $location=isset($_POST["autocomplete"])? mysqli_real_escape_string($conn,$_POST["autocomplete"]):'';
+    $address=isset($_POST["address"])? $_POST["address"]:'';
+    $signup = isset($_POST["signup"])? mysqli_real_escape_string($conn,$_POST["signup"]):'';*/
+    $firstname = isset($_POST["fname"])? $_POST["fname"]:'';
+    $lastname = isset($_POST["lname"])? $_POST["lname"]:'';
+    $email = isset($_POST["email"])? $_POST["email"]:'';
+    $phone = isset($_POST["phone"])? $_POST["phone"]:'';
+    $pwd = isset($_POST["passwd"])? $_POST["passwd"]:'';
+    $place1= isset($_POST["latitude"])? $_POST["latitude"]:'';
+    $place2= isset($_POST["longitude"])? $_POST["longitude"]:'';
+    $location=isset($_POST["autocomplete"])? $_POST["autocomplete"]:'';
+    $address=isset($_POST["address"])? $_POST["address"]:'';
+    $signup = isset($_POST["signup"])? $_POST["signup"]:'';
+    $pwd=  password_hash($pwd, PASSWORD_DEFAULT);
     if($signup=="Signup")
     {
-	$dbHelper=new DB();
+	
 	$data['Status'] = array(
         array("DBStatus" => "2", "Message" => "Values are Empty")
             );
@@ -77,6 +91,7 @@ function signup()
                                                        . "'".$lastname."','".$email."','".$phone."','".$place1."','".$place2."','".$location."','".$address."',"
                                                        . "'C','".$date."','".$rand."','".$pwd."')";
                                                        $affected=$dbHelper->runQuery($sql);
+                                                       $value=$abc->affected_rows;
                                             if ($affected==0)
                                             {
                                                     foreach($DbStatus as $key=>$bal) {

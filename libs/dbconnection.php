@@ -14,7 +14,7 @@ class DB {
 	// Open a connect to the database.
 	// Make sure this is called on every page that needs to use the database.
 	
-	private function connect() {
+	public function connect() {
 	
 		$mysqli = new mysqli($this->db_host, $this->db_user, $this->db_pass, $this->db_name);
 		if ($mysqli->connect_error) 
@@ -40,7 +40,7 @@ class DB {
 		{
 			$result = $conn -> query($query);
 			if (!$result) 
-			{
+			{       $conn->close();
 				return "Could not successfully run query ($query) from DB: " . mysql_error();
 				exit;
 			}
@@ -55,7 +55,6 @@ class DB {
 				$result->free();
 				$conn->close();
 				return $data;
-
 			}
 			return '';
 		}
@@ -68,6 +67,7 @@ class DB {
 			$result = $conn -> query($query);
 			if (!$result) 
 			{
+                                $conn->close();
 				return "Could not successfully run query ($query) from DB: " . mysql_error();
 				exit;
 			}
@@ -75,9 +75,10 @@ class DB {
 			{
                             if($conn->affected_rows>=1)
                             {
-                                return $conn->affected_rows;
+                                $count=$conn->affected_rows;
+                                $conn->close();
+                                return $count;
                             }
-
 			}
 			return 0;
 		}
