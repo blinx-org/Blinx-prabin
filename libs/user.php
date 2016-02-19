@@ -176,7 +176,7 @@ function update_query($query) {
     return $result;
 }
 
-$possible_url = array("vconfirm", "bconfirm","vupdate","bupdate","vchangpass","bchangepass","userInfo");
+$possible_url = array("vconfirm", "bconfirm","vupdate","bupdate","vchangpass","bchangepass","userInfo","fpass");
 $value = "An error has occurred";
 //getUserInformation();
 //$value = update_ratings();
@@ -204,6 +204,9 @@ if (isset($_POST["action"]) && in_array($_POST["action"], $possible_url))
             create_request();
         case "userInfo":
             getUserInformation();
+            break;
+        case "fpass":
+            getUserPass();
             break;
         }
     }
@@ -242,6 +245,39 @@ function getUserInformation() {
         //$abc=$data;
         //$def=json_encode($abc);
         return $data;
+    }
+    else
+    {
+        return '';
+    }
+    
+}
+function getUserPass() {
+    
+    $email = isset($_POST["email"]) ? $_POST["email"] : '';;
+    if($id!='')
+    {
+        $value=false;
+    $value1=false;
+    $included_files=get_included_files();
+    foreach ($included_files as $filename) {
+    $pieces = explode("\\", $filename);
+    $value=in_array("dbconnection.php", $pieces);
+    if($value==true)
+    {
+        $value1=true;
+    };
+    };
+    if(!$value1)
+        include 'dbconnection.php';
+    $dbHelper=new DB();
+    $result=$dbHelper->runSelectQuery("SELECT email_id as email FROM  m_volunteer v where v.mobile_number = '".$id."'");
+    $email=$result['email'];
+        
+        //
+        //$abc=$data;
+        //$def=json_encode($abc);
+        return $email;
     }
     else
     {

@@ -4,9 +4,9 @@ include 'dbconnection.php';
 function signup()
 {
     $dbHelper=new DB();
-    $abc=$dbHelper->connect();
+    $conn=$dbHelper->connect();
     //$abc->close();
-    /*$firstname = isset($_POST["fname"])? mysqli_real_escape_string($conn,$_POST["fname"]):'';
+    $firstname = isset($_POST["fname"])? mysqli_real_escape_string($conn,$_POST["fname"]):'';
     $lastname = isset($_POST["lname"])? mysqli_real_escape_string($conn,$_POST["lname"]):'';
     $email = isset($_POST["email"])? mysqli_real_escape_string($conn,$_POST["email"]):'';
     $phone = isset($_POST["phone"])? mysqli_real_escape_string($conn,$_POST["phone"]):'';
@@ -15,8 +15,8 @@ function signup()
     $place2= isset($_POST["longitude"])? mysqli_real_escape_string($conn,$_POST["longitude"]):'';
     $location=isset($_POST["autocomplete"])? mysqli_real_escape_string($conn,$_POST["autocomplete"]):'';
     $address=isset($_POST["address"])? $_POST["address"]:'';
-    $signup = isset($_POST["signup"])? mysqli_real_escape_string($conn,$_POST["signup"]):'';*/
-    $firstname = isset($_POST["fname"])? $_POST["fname"]:'';
+    $signup = isset($_POST["signup"])? mysqli_real_escape_string($conn,$_POST["signup"]):'';
+    /*$firstname = isset($_POST["fname"])? $_POST["fname"]:'';
     $lastname = isset($_POST["lname"])? $_POST["lname"]:'';
     $email = isset($_POST["email"])? $_POST["email"]:'';
     $phone = isset($_POST["phone"])? $_POST["phone"]:'';
@@ -25,7 +25,7 @@ function signup()
     $place2= isset($_POST["longitude"])? $_POST["longitude"]:'';
     $location=isset($_POST["autocomplete"])? $_POST["autocomplete"]:'';
     $address=isset($_POST["address"])? $_POST["address"]:'';
-    $signup = isset($_POST["signup"])? $_POST["signup"]:'';
+    $signup = isset($_POST["signup"])? $_POST["signup"]:'';*/
     $pwd=  password_hash($pwd, PASSWORD_DEFAULT);
     if($signup=="Signup")
     {
@@ -91,7 +91,6 @@ function signup()
                                                        . "'".$lastname."','".$email."','".$phone."','".$place1."','".$place2."','".$location."','".$address."',"
                                                        . "'C','".$date."','".$rand."','".$pwd."')";
                                                        $affected=$dbHelper->runQuery($sql);
-                                                       $value=$abc->affected_rows;
                                             if ($affected==0)
                                             {
                                                     foreach($DbStatus as $key=>$bal) {
@@ -220,7 +219,78 @@ function changepasssword()
         $status=$DbStatus;   
         return $status;
     }
-$possible_url = array("changepass", "signup","vInfo");
+    function restpasssword()
+    {
+    $dbHelper=new DB();
+    $data['Status'] = array(
+        array("DBStatus" => "2", "Message" => "Values are Empty")
+            );
+    $DbStatus=$data['Status'];
+    $date = date('Y-m-d H:i:s');
+    $vid = isset($_POST["vid"]) ? $_POST["vid"] : '';
+    $pwdNew = isset($_POST["pwd"]) ? $_POST["pwd"] : '';
+    if($vid=='' || $pwdNew =='')
+    {
+        $status=$data['Status'];
+    }
+    else
+    {
+                $query = "update m_volunteer set pwd='".$pwdNew."' where volunteer_id='".$vid."'";  
+                $affected=$dbHelper->runQuery($query);
+                if (!$affected>0)
+                {
+                        foreach($DbStatus as $key=>$bal) {
+                                $DbStatus[$key]['DBStatus']="0";
+                                $DbStatus[$key]['Message']=$sql;
+                        }
+                        header("Location: ./aftersignin.php?status=CF");
+                }
+                else
+                {
+                   foreach($DbStatus as $key=>$bal) {
+                                $DbStatus[$key]['DBStatus']="1";
+                                $DbStatus[$key]['Message']="Success";
+                        }
+                        header("Location: ./aftersignin.php?status=CP");
+                }
+            
+       }
+        $status=$DbStatus;   
+        return $status;
+    }
+    function getUserPass() {
+    
+    $email = isset($_POST["email"]) ? $_POST["email"] : '';;
+    if($email!='')
+    {
+        $value=false;
+    $value1=false;
+    $included_files=get_included_files();
+    foreach ($included_files as $filename) {
+    $pieces = explode("\\", $filename);
+    $value=in_array("dbconnection.php", $pieces);
+    if($value==true)
+    {
+        $value1=true;
+    };
+    };
+    if(!$value1)
+        include 'dbconnection.php';
+    $dbHelper=new DB();
+    $result=$dbHelper->runSelectQuery("SELECT volunteer_id as vid,email_id as email FROM  m_volunteer v where v.email_id = '".$email."'");
+    $emailDb=$result['email'];
+    $vid=$result['vid'];
+    if($emailDb==$email)
+    {
+        header("Location: ./forgotpassword.php?vid=".$vid."");
+    }
+    else
+    {
+        return '';
+    }
+    }
+}
+$possible_url = array("changepass", "signup","fpass","passreset");
 if (isset($_POST["action"]) && in_array($_POST["action"], $possible_url)) 
 {
     switch ($_POST["action"]) 
@@ -231,10 +301,12 @@ if (isset($_POST["action"]) && in_array($_POST["action"], $possible_url))
         case "signup":
             $status=signup();
             break;
-        case "vInfo":
+        case "fpass":
+            getUserPass();
+        case "passreset":
+            $status=restpasssword();
             break;
     }
     echo $status;
 }
-    
 ?>		

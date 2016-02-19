@@ -38,8 +38,7 @@ $_pageid = 112;
                                 };
                                 if(!$value1)
                                     include '.\sendmail.php';
-                                
-                                
+                                                              
                                 ?>
                                     <div class="row padd20-top-btm">
                                     <div class="col-md-12 text-center">
@@ -105,6 +104,55 @@ $_pageid = 112;
                                     <p>
                                         Please try after some time. 
                                         Our team will get it fixed. For further assistance contact us.
+                                    </p>
+                                    <div class="col-md-12">
+                                    </div>
+                                    </div>
+                                    </div>
+                                <?php
+                                }
+                                else if($status=="FP")
+                                {
+                                $value=false;
+                                $value1=false;
+                                $included_files=get_included_files();
+                                foreach ($included_files as $filename) {
+                                $pieces = explode("\\", $filename);
+                                $value=in_array("sendmail.php", $pieces);
+                                if($value==true)
+                                {
+                                    $value1=true;
+                                };
+                                };
+                                if(!$value1)
+                                    include '.\sendmail.php';
+                                ?>
+                                    <div class="row padd20-top-btm">
+                                    <div class="col-md-12 text-center">
+                                    <h4>
+                                        Password reset link sent to your email ID
+                                    </h4>
+                                    <p>
+                                        Please rest your password.
+                                    </p>
+                                    <div class="col-md-12">
+                                    </div>
+                                    </div>
+                                    </div>
+                                <?php
+                                $email=$_GET["email"];
+                                mailto(5,$email);
+                                }
+                                else if($status=="FF")
+                                {
+                                ?>
+                                    <div class="row padd20-top-btm">
+                                    <div class="col-md-12 text-center">
+                                    <h4>
+                                        Sorry email is not not correct.
+                                    </h4>
+                                    <p>
+                                        Plesae enter correct email ID
                                     </p>
                                     <div class="col-md-12">
                                     </div>

@@ -231,7 +231,7 @@ function mailto($mail,$id)
 		echo $html1;
     }
 	//Chnage Password
-	if($mail=="4")
+    if($mail=="4")
     {
         $value=false;
         $value1=false;
@@ -273,46 +273,33 @@ function mailto($mail,$id)
         mail($to, $subject, $message, $headers);
     }
 	//ForgotPassword
-	if($mail=="4")
+	if($mail=="5")
     {
-        $value=false;
-        $value1=false;
-        $included_files=get_included_files();
-        foreach ($included_files as $filename) 
-        {
-            $pieces = explode("\\", $filename);
-            $value=in_array("dbconnection.php", $pieces);
-            if($value==true)
-            {
-                $value1=true;
-            };
-        };
-        if(!$value1)
-            include '.\libs\dbconnection.php';
-  
         $dbHelper=new DB();
-        $data=run_query($id);
-        session_start();
-        $vid=$_SESSION['mobile'];
-        $vid='9538088668';
-        $query = "SELECT * FROM  m_volunteer v where v.mobile_number = '".$vid."'";
+        $query = "SELECT * FROM  m_volunteer v where v.email_id = '".$id."'";
         $result=$dbHelper->runSelectQuery($query);
         $to= $result[0]['email_id'];
         $vid= $result[0]['volunteer_id'];
-        $confirmCode= $result[0]['confirmCode'];
-        $subject = 'Request Acceptance';
+        $confirmCode= $result[0]['confirmcode'];
+        $subject = 'Thanks for joining & Email Verification';
         $headers = "From: blinx.app@gmail.com \r\n";
         $headers .= "Reply-To: email@domain.com \r\n";
         $headers .= "MIME-Version: 1.0\r\n";
         $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
         $message = '<html><body>';
         $message.='<div style="width:550px; background-color:#CC6600; padding:15px; font-weight:bold;">';
-        $message.='Request ACceptance';
+        $message.='Verification mail';
         $message.='</div>';
         $message.='<p>Dear '. $result[0]['first_name'] . $result[0]['last_name']." <br></br>".
                 "<br></br>".
-            "your request is cancelled. The below are request details.".
-            '</P>';
+            "Firstly, a heartfelt 'Thank you' for having registered on BLINX a Volunteer..".
+            "It means you believe in the power of good, in our country's '".
+            "future and your ability to make a change.".
+            "I look forward to hearing from you! </P>'";
+        $message.='<div style=font-family: Arial;><br/>';
+        $message.='click on the below link to verify your account ';
+        $message.="<a href=".$_SERVER['SERVER_NAME']."/reset.php?id=".$vid."&email=".$to."&confirmation_code=".$confirmCode."'>click</a>'";
+        $message.='</div>';
         $message.='</body></html>';
         mail($to, $subject, $message, $headers);
     }
