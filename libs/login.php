@@ -78,29 +78,30 @@ if($login=="Login")
                     $pwd=$result1[0]['pwd'];
                     if(intval($value)==1)
                     {
-                        session_start();
-                        $result2=$dbHelper->runSelectQuery($query2);
-                        $data = $result2;
-						if (is_array($result2)&&count($result2)>=1&&password_verify($password, $pwd)) 
-						{
-							$_SESSION['vid']=$data[0]['volunteer_id'];
-							$_SESSION['email']=$data[0]['email_id'];
-							$_SESSION['mobile']=$data[0]['mobile_number'];
-							$_SESSION['name']=$data[0]['first_name'];
-							foreach($DbStatus as $key=>$bal) 
-							{
-								$DbStatus[$key]['DBStatus']="1";
-								$DbStatus[$key]['Message']="";
-								header("Location: ./index.php");
-							}
-						}
-						else
-						{
-							foreach($DbStatus as $key=>$bal) {
-							$DbStatus[$key]['DBStatus']="2";
-							$DbStatus[$key]['Message']="User Details Failed";
-                          } 
-						}
+                        $data=$dbHelper->runSelectQuery($query2);
+                        if (is_array($data)&&count($data)>=1&&password_verify($password, $pwd)) 
+                        {
+                            session_start();
+                            $_SESSION['vid']=$data[0]['volunteer_id'];
+                            $_SESSION['email']=$data[0]['email_id'];
+                            $_SESSION['mobile']=$data[0]['mobile_number'];
+                            $_SESSION['name']=$data[0]['first_name'];
+                            $_SESSION['start'] = time(); // Taking now logged in time.
+                            $_SESSION['expire'] = $_SESSION['start'] + (30 * 60);
+                            foreach($DbStatus as $key=>$bal) 
+                            {
+                                    $DbStatus[$key]['DBStatus']="1";
+                                    $DbStatus[$key]['Message']="";
+                                    header("Location: ./index.php");
+                            }
+                        }
+                        else
+                        {
+                            foreach($DbStatus as $key=>$bal) {
+                            $DbStatus[$key]['DBStatus']="2";
+                            $DbStatus[$key]['Message']="User Details Failed";
+                            } 
+                        }
                         /*while ($row = mysqli_fetch_array($result2, MYSQLI_ASSOC)) 
                         {
                             array_push($data, $row);

@@ -110,6 +110,8 @@ function signup()
                                                     $_SESSION['email']=$email;
                                                     $_SESSION['mobile']=$phone;
                                                     $_SESSION['name']=$fname;
+                                                    $_SESSION['start'] = time(); // Taking now logged in time.
+                                                    $_SESSION['expire'] = $_SESSION['start'] + (30 * 60);
                                                     header("Location: ./aftersignin.php?status=JP");
                                             }
                             }
@@ -278,8 +280,8 @@ function changepasssword()
         include 'dbconnection.php';
     $dbHelper=new DB();
     $result=$dbHelper->runSelectQuery("SELECT volunteer_id as vid,email_id as email FROM  m_volunteer v where v.email_id = '".$email."'");
-    $emailDb=$result['email'];
-    $vid=$result['vid'];
+    $emailDb=$result[0]['email'];
+    $vid=$result[0]['vid'];
     if($emailDb==$email)
     {
         header("Location: ./forgotpassword.php?vid=".$vid."");

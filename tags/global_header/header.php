@@ -1,19 +1,22 @@
 <?php
 session_start();
 $vId=$_SESSION['vid'];
-if((!isset($vId) || trim($vId)===''))
+if(!isset($_SESSION['vid']))
 {
-    session_destroy();
-    session_unset();
+    
 }
 else
 {
-    //include_once './libs/user.php';
-    //$data=getUserInformation();
-    //$data=  json_decode($data);
-    $vName='';
+    $now = time(); // Checking the time now when home page starts.
+    if ($now > $_SESSION['expire']) {
+            session_destroy();
+            echo "Your session has expired! <a href='http://localhost/somefolder/login.php'>Login here</a>";
+        }
+ else {
+     $vName='';
     session_start();
     $vName=$_SESSION['name'];
+ }
 }
 ?>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">

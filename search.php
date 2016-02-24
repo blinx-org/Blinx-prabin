@@ -56,9 +56,20 @@ $_pageid = 5;
                         <div class="col-xs-12 col-sm-8">
                             <div>
                                 <?php
-                                foreach ($value['requests'] as &$request) {
+                                $records_per_page = 10;
+                                require './libs/Zebra_Pagination.php';
+                                $pagination = new Zebra_Pagination();
+                                $pagination->records(count($value['requests']));
+                                $pagination->records_per_page($records_per_page);
+                                $value['requests'] = array_slice(
+                                            $value['requests'],
+                                            (($pagination->get_page() - 1) * $records_per_page),
+                                            $records_per_page
+                                        );
+                                foreach ($value['requests'] as $request) {
                                     include './tags/search/search-listing.php';
                                 }
+                                $pagination->render();
                                 ?>
                             </div>
                         </div>

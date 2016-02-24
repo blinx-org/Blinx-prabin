@@ -1,4 +1,6 @@
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+<link rel="stylesheet" href="./resources/css/zebra_pagination.css" type="text/css">
+<script type="text/javascript" src="./resources/js/zebra_pagination.js"></script>
 <script type="text/javascript">
     function initialize() {
         var address=document.getElementById('my-address').style.height;

@@ -47,6 +47,7 @@ $vid=$_SESSION['vid'];
 										"<td><a href=accept.php?id="+ value.reqID+"&status="+ value.Status+">Link</a></td>"+
 										"<td>"+ value.first_name+ " "+value.last_name+"</td>"+
 										"<td>" + value.statusDesc + "</td>"+
+                                                                                "<td>" + value.Cstatus + "</td>"+
 										"<td>" + value.Requesteddate + "</td>"+
 										"<td>" + value.Datetime + "</td>"+
 										"</tr>");
@@ -166,10 +167,11 @@ $vid=$_SESSION['vid'];
 							<table id="table1" class="table table-hover">
 								<thead>
 									<tr>
-										<th>Name</th>
-										<th>Status</th>
+										<th>Beneficiary Name</th>
+										<th>Action</th>
+                                                                                <th>current status</th>
 										<th>Requested Date</th>
-										<th>Accepted Date</th>
+										<th>Date</th>
 									</tr>
 								</thead>
 							</table>

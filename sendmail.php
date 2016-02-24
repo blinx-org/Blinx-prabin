@@ -1,5 +1,6 @@
 <?php
 $mail=$_GET['mail'];
+//mailto(1,"9538088668");
 function mailto($mail,$id)
 {
     $value=false;
@@ -19,7 +20,7 @@ function mailto($mail,$id)
     if($mail=="1")
     {
         $dbHelper=new DB();
-        $query = "SELECT * FROM  m_volunteer v where v.mobile_number = '".$id."'";
+        $query = "SELECT * FROM  m_volunteer v where v.volunteer_id = '".$id."'";
         $result=$dbHelper->runSelectQuery($query);
         $to= $result[0]['email_id'];
         $vid= $result[0]['volunteer_id'];
@@ -38,14 +39,33 @@ function mailto($mail,$id)
             "Firstly, a heartfelt 'Thank you' for having registered on BLINX a Volunteer..".
             "It means you believe in the power of good, in our country's '".
             "future and your ability to make a change.".
-            "I look forward to hearing from you! </P>'";
-        $message.='<div style=font-family: Arial;><br/>';
-        $message.='click on the below link to verify your account ';
-        $message.="<a href=".$_SERVER['SERVER_NAME']."/vconfirmation.php?id=".$vid."&email=".$to."&confirmation_code=".$confirmCode."'>click</a>'";
+            "I look forward to hearing from you! </P>";
+        $message.="<div style=font-family: Arial><br/>";
+        $message.="click on the below link to verify your account ";
+        $message.="<a href=".$_SERVER['SERVER_NAME']."/vconfirmation.php?id=".$vid."&email=".$to."&confirmation_code=".$confirmCode.">click</a>";
         $message.='</div>';
         $message.='</body></html>';
-        mail($to, $subject, $message, $headers);
-    }
+        require './libs/PHPMailerAutoload.php';
+        $mail = new PHPMailer();
+        $mail->isSMTP();                                      // Set mailer to use SMTP
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;                               // Enable SMTP authentication
+        $mail->Username = 'blinx.app@gmail.com';                 // SMTP username
+        $mail->Password = 'tou9901715885';                           // SMTP password
+        $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+        $mail->Port = 587;
+        $mail->SMTPDebug  = 0;// TCP port to connect to
+        $mail->setFrom('blinx.app@gmail.com', 'blinx');
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->addAddress($to, '');     // Add a recipient
+        $mail->Subject = 'Thanks for joining & Email Verification';
+        $mail->Body = $message;
+        if(!$mail->send()) {
+                     return $mail->ErrorInfo;
+                    } else {
+                        echo "0";
+                    }
+       }
 	//RequestAcceptance
     if($mail=="2")
     {
@@ -76,7 +96,6 @@ function mailto($mail,$id)
         };
         if(!$value1)
             include '.\libs\request.php';
-   
         $dbHelper=new DB();
         $data=run_query($id);
         session_start();
@@ -109,22 +128,39 @@ function mailto($mail,$id)
                     '<h4> Message : '.$data["Message"].'</h4>'.
                     '<h4> Address : '.$data["Address"].'</h4>';
         $message.='</body></html>';
-		$html=$message;
-		echo $html;
-        //mail($to, $subject, $message, $headers);
+		require './libs/PHPMailerAutoload.php';
+                $mail = new PHPMailer();
+                $mail->isSMTP();                                      // Set mailer to use SMTP
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;                               // Enable SMTP authentication
+                $mail->Username = 'blinx.app@gmail.com';                 // SMTP username
+                $mail->Password = 'tou9901715885';                           // SMTP password
+                $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+                $mail->Port = 587;
+                $mail->SMTPDebug  = 2;// TCP port to connect to
+                $mail->setFrom('blinx.app@gmail.com', 'blinx');
+                $mail->isHTML(true);                                  // Set email format to HTML
+                $mail->addAddress($to, '');     // Add 
+                $mail->Subject = 'Thanks for joining & Email Verification';
+                $mail->Body    = $message;
+                if(!$mail->send()) {
+                            return $mail->ErrorInfo;
+                    } else {
+                        return "0";
+                    }
 		$message='';
 		$message = '<html><body>';
-        $message.='<p>Dear '. $resultUsr[0]['first_name'] . $resultUsr[0]['last_name']." <br></br>".
-            "Your Request is accepted. The below are Volunteer details.".
-            '</P>';
-		$message.='<h4> Name :'.$resultVol[0]['first_name'] ." ". $resultVol['last_name'].'</h4>'.
-                    '<h4> Mobile :'. $resultVol["mobile_number"]. '</h4>'.
-                    '<h4> E-mail :'. $resultVol["email_id"]. '</h4>'.
-					'<h4> Address : '.$resultVol["address"].'Hrs </h4>';
-		$message.="<br></br>".
-            "The below are Request details.".
-            '</P>';
-        $message.='<h4> Name :'.$data['first_name'] ." ". $data['last_name'].'</h4>'.
+                $message.='<p>Dear '. $resultUsr[0]['first_name'] . $resultUsr[0]['last_name']." <br></br>".
+                    "Your Request is accepted. The below are Volunteer details.".
+                    '</P>';
+                        $message.='<h4> Name :'.$resultVol[0]['first_name'] ." ". $resultVol['last_name'].'</h4>'.
+                            '<h4> Mobile :'. $resultVol["mobile_number"]. '</h4>'.
+                            '<h4> E-mail :'. $resultVol["email_id"]. '</h4>'.
+                                                '<h4> Address : '.$resultVol["address"].'Hrs </h4>';
+                        $message.="<br></br>".
+                    "The below are Request details.".
+                    '</P>';
+                $message.='<h4> Name :'.$data['first_name'] ." ". $data['last_name'].'</h4>'.
                     '<h4> Mobile :'. $data["mobile_number"]. '</h4>'.
                     '<h4> Type of service :'. $data["Description"]. '</h4>'.
 					'<h4> Duration : '.$data["duration"].'Hrs </h4>'.
@@ -133,11 +169,18 @@ function mailto($mail,$id)
                     '<h4> Location : https://www.google.com/maps/place/'. $data["latitude"].','.$data["longitude"].'<h4>'.
                     '<h4> Message : '.$data["Message"].'</h4>'.
                     '<h4> Address : '.$data["Address"].'</h4>';
-		
-        $message.='</body></html>';
+                $message.='</body></html>';
 		$html1=$message;
-		echo $html1;
-    }
+                $mail->addAddress($to, '');     // Add a recipient
+                $mail->Subject = 'Thanks for joining & Email Verification';
+                $mail->Body    = $message;
+                if(!$mail->send()) {
+                            echo 'Message could not be sent.';
+                            echo 'Mailer Error: ' . $mail->ErrorInfo;
+                    } else {
+                        echo 'Message has been sent';
+                    }
+            }
 	//Request Cancelled.
     if($mail=="3")
     {

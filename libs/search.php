@@ -148,17 +148,18 @@ function volunteer_requests()
 					req.longitude,
 					req.duration,
 					reqlog.Datetime,
-					reqlog.status,
-					s.Description AS statusDesc
+					reqlog.status As action,
+ 					s.Description AS statusDesc,
+                                        sr.Description AS Cstatus,
+                                        req.Status AS Status
 				FROM
 					t_help_request req left outer join t_help_request_log reqlog on req.Id=reqlog.Id
+                                        left outer join f_request_status sr on sr.Status=req.Status
 					left outer join f_request_status s on s.Status=reqlog.Status
 					left outer join m_user u on req.UserId=u.user_id
 					left outer join f_help h on h.Id=req.HelpId
 				WHERE
-						req.VolunteerId ='".$vid."' and reqlog.VolunteerId='".$vid."'";
-			
-
+					req.VolunteerId ='".$vid."' and reqlog.VolunteerId='".$vid."' order by reqlog.Datetime";
 				$result = mysqli_query($conn, $query);
 				$data['requests'] = array();
 				 while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -286,8 +287,9 @@ function run_query() {
     $result=$dbHelper->runSelectQuery($sql_final);
     //$result = mysqli_query($conn, $sql_final);
     if (!$result) {
-        echo "Could not successfully run query ($sql_final) from DB: " . mysql_error();
-        exit;
+        //echo "Could not successfully run query ($sql_final) from DB: " . mysql_error();
+        $data['requests'] = array();
+                
     }
     $data['requests'] = $result;
     //while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -426,8 +428,8 @@ function run_query_onlinehelp() {
     $result=$dbHelper->runSelectQuery($sql_final);
     //$result = mysqli_query($conn, $sql_final);
     if (!$result) {
-        echo "Could not successfully run query ($sql_final) from DB: " . mysql_error();
-        exit;
+        //return "Could not successfully run query ($sql_final) from DB: " . mysql_error();
+        return "Could not successfully get data from DB: " . mysql_error();
     }
     $data['requests'] = $result;
     //while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {

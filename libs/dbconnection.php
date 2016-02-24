@@ -54,7 +54,7 @@ class DB {
 				printf ("%s (%s)\n", $row[0], $row[1]);
 				$result->free();
 				$conn->close();
-				return $data[0];
+				return $data;
 			}
 			return '';
 		}

@@ -4,6 +4,20 @@
 // This would normally be pulled from a database but for demo purposes, I will be hardcoding the return values.
 date_default_timezone_set('Asia/Kolkata');
 
+$value=false;
+    $value1=false;
+    $included_files=get_included_files();
+    foreach ($included_files as $filename) {
+    $pieces = explode("\\", $filename);
+    $value=in_array("dbconnection.php", $pieces);
+    if($value==true)
+    {
+        $value1=true;
+    };
+    };
+    if(!$value1)
+        include 'dbconnection.php';
+
 function update_Accept_request() {
     $date = date('Y-m-d H:i:s');
     $data['Status'] = array(
@@ -25,7 +39,6 @@ function update_Accept_request() {
         $query = "UPDATE t_help_request set Status = '$status', VolunteerId = $vid where Id = $reqId ";
         $query_log="INSERT INTO t_help_request_log(Id,UserId ,Datetime,Status,VolunteerId,Mid) ".
             " VALUES ( ".$reqId .",".$UsrId.",'".$date."','".$status."',".$vid.",".$mId.")";
-        include './dbconnection.php';
     $conn = mysqli_connect($host, $user, $pass, $database) or die("Error " . mysqli_error($link));
     mysqli_begin_transaction($conn, MYSQLI_TRANS_START_READ_WRITE);
     $value = mysqli_query($conn, $query);

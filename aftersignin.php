@@ -55,8 +55,8 @@ $_pageid = 112;
                                     </div>
                                 <?php
                                 session_start();
-                                $mobile=$_SESSION['mobile'];
-                                mailto(1,$mobile);
+                                $vid=$_SESSION['vid'];
+                                mailto(1,$vid);
                                 }
                                 else if($status=="JF")
                                 {
