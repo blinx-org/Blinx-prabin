@@ -84,6 +84,34 @@ class DB {
 		}
 		return 0;
 	}
+        public function runMultipleQuery($query1,$query2) {
+		$conn= $this -> connect();
+                //$conn->begin_transaction(MYSQLI_TRANS_START_READ_ONLY);
+		if($conn!='')
+		{
+			$result1 = $conn ->query($query1);
+                        $result2 = $conn -> query($query2);
+			if (!$result1 ||!$result2 ) 
+			{       
+                                //$conn->rollback();
+                                $conn->close();
+				return 'Connect Error (' . $conn->connect_errno . ') '. $conn->connect_error.'';
+			}
+			else
+			{
+                            if($result1 && $result2)
+                            {
+                                //$conn->commit();
+                                $conn->close();
+                                return true;
+                            }
+                            else
+                                return false;
+			}
+			return false;
+		}
+		return false;
+	}
 }
 ?>
 

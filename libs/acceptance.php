@@ -4,7 +4,7 @@
 // This would normally be pulled from a database but for demo purposes, I will be hardcoding the return values.
 date_default_timezone_set('Asia/Kolkata');
 
-$value=false;
+    $value=false;
     $value1=false;
     $included_files=get_included_files();
     foreach ($included_files as $filename) {
@@ -39,13 +39,12 @@ function update_Accept_request() {
         $query = "UPDATE t_help_request set Status = '$status', VolunteerId = $vid where Id = $reqId ";
         $query_log="INSERT INTO t_help_request_log(Id,UserId ,Datetime,Status,VolunteerId,Mid) ".
             " VALUES ( ".$reqId .",".$UsrId.",'".$date."','".$status."',".$vid.",".$mId.")";
-    $conn = mysqli_connect($host, $user, $pass, $database) or die("Error " . mysqli_error($link));
-    mysqli_begin_transaction($conn, MYSQLI_TRANS_START_READ_WRITE);
-    $value = mysqli_query($conn, $query);
-    $result=mysqli_query($conn, $query_log);
-        if($value && $result )
+        
+        $dbHelper=new DB();
+        //$result=$dbHelper->runQuery($query);
+        $result=$dbHelper->runMultipleQuery($query, $query_log);
+        if($result)
         {
-            mysqli_commit($conn);
             foreach($DbStatus as $key=>$bal) {
                     $DbStatus[$key]['DBStatus']=$value;
                     $DbStatus[$key]['Message']="Success";
@@ -57,12 +56,8 @@ function update_Accept_request() {
                     $DbStatus[$key]['DBStatus']="0";
                     $DbStatus[$key]['Message']="Failed to run query";
               }
-            mysqli_rollback($conn);
         }
-        mysqli_close($conn);
        return json_encode($DbStatus);
-		//return $query;
-        //return $data['Status'];
     }
 }
 function create_request() {

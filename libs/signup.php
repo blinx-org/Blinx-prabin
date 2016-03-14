@@ -10,6 +10,8 @@ function signup()
     $lastname = isset($_POST["lname"])? mysqli_real_escape_string($conn,$_POST["lname"]):'';
     $email = isset($_POST["email"])? mysqli_real_escape_string($conn,$_POST["email"]):'';
     $phone = isset($_POST["phone"])? mysqli_real_escape_string($conn,$_POST["phone"]):'';
+    $ephone = isset($_POST["ephone"])? mysqli_real_escape_string($conn,$_POST["ephone"]):'';
+    $sex = isset($_POST["sex"])? mysqli_real_escape_string($conn,$_POST["sex"]):'';
     $pwd = isset($_POST["passwd"])? mysqli_real_escape_string($conn,$_POST["passwd"]):'';
     $place1= isset($_POST["latitude"])? mysqli_real_escape_string($conn,$_POST["latitude"]):'';
     $place2= isset($_POST["longitude"])? mysqli_real_escape_string($conn,$_POST["longitude"]):'';
