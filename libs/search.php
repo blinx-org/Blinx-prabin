@@ -179,7 +179,6 @@ function volunteer_requests()
  * @return array
  */
 function run_query() {
-
     // including db connection details into search backend
     $value=false;
     $value1=false;
@@ -194,7 +193,6 @@ function run_query() {
     };
     if(!$value1)
         include 'dbconnection.php';
-
     $long = isset($_GET["long"])?$_GET["long"]:'';
     $lat = isset($_GET["lat"])?$_GET["lat"]:'';
     $dbHelper=new DB();

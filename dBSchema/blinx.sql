@@ -16,6 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `f_blindness_status`
+--
+
+DROP TABLE IF EXISTS `f_blindness_status`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `f_blindness_status` (
+  `Id` int(11) NOT NULL,
+  `Description` varchar(20) DEFAULT NULL,
+  `IsUsed` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `f_blindness_status`
+--
+
+LOCK TABLES `f_blindness_status` WRITE;
+/*!40000 ALTER TABLE `f_blindness_status` DISABLE KEYS */;
+INSERT INTO `f_blindness_status` VALUES (1,'Totally blind',1),(2,'Light perception',1),(3,'Blurness',1),(4,'Short sight',1),(5,'Long sight',1),(6,'RP',1),(7,'Color blindness',1);
+/*!40000 ALTER TABLE `f_blindness_status` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `f_education`
 --
 
@@ -36,6 +61,7 @@ CREATE TABLE `f_education` (
 
 LOCK TABLES `f_education` WRITE;
 /*!40000 ALTER TABLE `f_education` DISABLE KEYS */;
+INSERT INTO `f_education` VALUES (1,'Below 10',1);
 /*!40000 ALTER TABLE `f_education` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,6 +90,31 @@ INSERT INTO `f_help` VALUES (1,'Reading',1),(2,'Writing',1),(3,'Scanning Books',
 UNLOCK TABLES;
 
 --
+-- Table structure for table `f_hobbies`
+--
+
+DROP TABLE IF EXISTS `f_hobbies`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `f_hobbies` (
+  `Id` int(11) NOT NULL,
+  `Description` varchar(20) DEFAULT NULL,
+  `IsUsed` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `f_hobbies`
+--
+
+LOCK TABLES `f_hobbies` WRITE;
+/*!40000 ALTER TABLE `f_hobbies` DISABLE KEYS */;
+INSERT INTO `f_hobbies` VALUES (1,'Music',1),(2,'Singing',1);
+/*!40000 ALTER TABLE `f_hobbies` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `f_jobfunction`
 --
 
@@ -84,6 +135,7 @@ CREATE TABLE `f_jobfunction` (
 
 LOCK TABLES `f_jobfunction` WRITE;
 /*!40000 ALTER TABLE `f_jobfunction` DISABLE KEYS */;
+INSERT INTO `f_jobfunction` VALUES (1,'Student',1),(2,'Employed',1),(7,'Other',1),(3,'Self Employed',1),(4,'NGO',1),(5,'Government',1),(6,'House Wife',1);
 /*!40000 ALTER TABLE `f_jobfunction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -142,6 +194,56 @@ INSERT INTO `f_location` VALUES (1,'Andaman and Nicobar','Nicobar','Campbell Bay
 UNLOCK TABLES;
 
 --
+-- Table structure for table `f_meetingtype`
+--
+
+DROP TABLE IF EXISTS `f_meetingtype`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `f_meetingtype` (
+  `Id` int(11) NOT NULL DEFAULT '0',
+  `Description` varchar(200) DEFAULT NULL,
+  `IsUsed` int(1) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `f_meetingtype`
+--
+
+LOCK TABLES `f_meetingtype` WRITE;
+/*!40000 ALTER TABLE `f_meetingtype` DISABLE KEYS */;
+INSERT INTO `f_meetingtype` VALUES (1,'InPersonal',1),(2,'Online',1);
+/*!40000 ALTER TABLE `f_meetingtype` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `f_mobility`
+--
+
+DROP TABLE IF EXISTS `f_mobility`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `f_mobility` (
+  `Id` int(11) NOT NULL,
+  `Description` varchar(20) DEFAULT NULL,
+  `IsUsed` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `f_mobility`
+--
+
+LOCK TABLES `f_mobility` WRITE;
+/*!40000 ALTER TABLE `f_mobility` DISABLE KEYS */;
+INSERT INTO `f_mobility` VALUES (1,'Good',1),(2,'OK',1),(3,'No',1);
+/*!40000 ALTER TABLE `f_mobility` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `f_request_status`
 --
 
@@ -163,8 +265,33 @@ CREATE TABLE `f_request_status` (
 
 LOCK TABLES `f_request_status` WRITE;
 /*!40000 ALTER TABLE `f_request_status` DISABLE KEYS */;
-INSERT INTO `f_request_status` VALUES (1,'Pending/Created','P',1),(2,'Accepted','A',1),(3,'Accepted and Cancell','AC',1),(4,'Deleted or Rejected','D',1);
+INSERT INTO `f_request_status` VALUES (1,'Pending/Created','NC',1),(2,'Accepted','AC',1),(3,'Cancelled','CN',1),(4,'Closed','CL',1),(5,'Failed','FA',1);
 /*!40000 ALTER TABLE `f_request_status` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `f_technology`
+--
+
+DROP TABLE IF EXISTS `f_technology`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `f_technology` (
+  `Id` int(11) NOT NULL,
+  `Description` varchar(20) DEFAULT NULL,
+  `IsUsed` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `f_technology`
+--
+
+LOCK TABLES `f_technology` WRITE;
+/*!40000 ALTER TABLE `f_technology` DISABLE KEYS */;
+INSERT INTO `f_technology` VALUES (1,'Comuputer',1),(2,'Mobile',1),(3,'Computer & Mobile',1),(4,'No',1);
+/*!40000 ALTER TABLE `f_technology` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -209,23 +336,32 @@ CREATE TABLE `m_user` (
   `emergency_mobile_number` int(10) NOT NULL,
   `date_of_birth` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `gender` varchar(6) COLLATE utf8_unicode_ci NOT NULL,
+  `language` int(1) DEFAULT NULL,
+  `planguage` int(1) DEFAULT NULL,
+  `blindness` int(1) DEFAULT NULL,
+  `mobility` int(1) DEFAULT NULL,
+  `technology` int(1) DEFAULT NULL,
+  `hobbies` int(1) DEFAULT NULL,
+  `dream` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `occupation` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `qualification` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `institution` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
-  `occupation` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `state` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `district` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `pincode` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `paddress` varchar(400) COLLATE utf8_unicode_ci NOT NULL,
+  `address` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `location` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `address` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `lat` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `longi` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `document_path` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `cud` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
   `status` varchar(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `m_id` int(6) NOT NULL,
-  `pwd` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `pwd` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
   `verifier_mid` int(6) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -234,7 +370,7 @@ CREATE TABLE `m_user` (
 
 LOCK TABLES `m_user` WRITE;
 /*!40000 ALTER TABLE `m_user` DISABLE KEYS */;
-INSERT INTO `m_user` VALUES (1,'raju','Mani','maniraju@gmail.com','9538088668',2147483647,'2015-08-15','Male','1','1','1','1','1','1','1','1','2015-12-15 15:56:14','2015-07-31 18:30:00','C','N',0,'a',NULL),(2,'raju','Mahesh','mahesh@gmail.com','8538210083',1111111,'2015-08-15','Male','1','1','1','1','1','1','1','1','2015-09-18 17:09:50','2008-07-31 18:30:00','C','0',1,'a',NULL),(4,'Raju','Pawan','pawan@gmail.com','9538088669',777777,'2015-08-15','Male','1','1','1','1','1','1','1','1','2015-11-28 23:14:51','2015-08-31 18:30:00','C','0',0,'a',NULL),(7,'sharukh','khan','sharukh@gmail.com','123456789',123456789,'2015-08-15','Male','1','','1','1','1','1','1','1','2014-12-31 18:30:00','2015-08-31 18:30:00','C','0',1,'a',NULL);
+INSERT INTO `m_user` VALUES (1,'mani','mani','mani@mani.com','1231293124',2147483647,'','male',3,4,NULL,NULL,NULL,NULL,NULL,'4','4','kjhdslldsl','12313','ajksdhaslh','ajkhdlkjha','123123','111','1223','','2016-02-28 07:44:54','0000-00-00 00:00:00','C','N',1,NULL,NULL);
 /*!40000 ALTER TABLE `m_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -253,7 +389,7 @@ CREATE TABLE `m_volunteer` (
   `mobile_number` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `longi` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lati` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `pwd` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `pwd` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `cud` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
@@ -262,7 +398,7 @@ CREATE TABLE `m_volunteer` (
   `verified` int(1) DEFAULT NULL,
   `confirmcode` int(7) DEFAULT NULL,
   PRIMARY KEY (`volunteer_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -271,7 +407,7 @@ CREATE TABLE `m_volunteer` (
 
 LOCK TABLES `m_volunteer` WRITE;
 /*!40000 ALTER TABLE `m_volunteer` DISABLE KEYS */;
-INSERT INTO `m_volunteer` VALUES (1,'Mani','Kanta','manikantaraju@gmail.com','9538088668','77.62104959999999','12.9564345','123456aA','2016-02-05 17:21:12','2016-01-23 18:30:00','C','aaa, Lower Agaram Road, Neelasandra, Bengaluru, Karnataka, India','AAAA',NULL,NULL),(2,'kkk','bkk','ak@bk.com','9999','77.62710779999998','12.9279232','1234','2016-01-23 05:37:36','0000-00-00 00:00:00','C','Koramangala, Bengaluru, Karnataka, India','aaa',NULL,NULL),(3,'kkk','bkk','ak@bkkcom','888','77.64330889999997','12.9673053','1234','2016-01-23 05:40:33','0000-00-00 00:00:00','C','HAL 2nd Stage, Bengaluru, Karnataka, India','aaa',NULL,NULL),(4,'kkk','bkk','ak@hk.com','222','77.64330889999997','12.9673053','asdf','2016-01-23 05:41:29','0000-00-00 00:00:00','C','HAL 2nd Stage, Bengaluru, Karnataka, India','aaa',NULL,NULL),(5,'kkk','kjm','df@df.com','8989232323','77.62710779999998','12.9279232','123','2016-01-28 15:28:47','0000-00-00 00:00:00','C','Koramangala, Bengaluru, Karnataka, India','abc',NULL,NULL),(6,'abc','kbc','kbc@kbc.com','8989232345','77.62710779999998','12.9279232','123','2016-01-28 15:37:37','0000-00-00 00:00:00','C','Koramangala, Bengaluru, Karnataka, India','123',NULL,NULL),(7,'mmm','kkk','mmm@mmm.com','89899898','77.64760799999999','12.9081357','123','2016-01-28 15:45:23','0000-00-00 00:00:00','C','HSR Layout, Bengaluru, Karnataka, India','123',NULL,NULL),(8,'mani','kanta','mani@mani.com','1111','77.62710779999998','12.9279232','123456aA','2016-01-29 15:23:14','0000-00-00 00:00:00','C','Koramangala, Bengaluru, Karnataka, India','abc',NULL,NULL),(9,'kknj','kknj','k@k.com','11','77.62710779999998','12.9279232','123456bB','2016-02-02 15:08:06','0000-00-00 00:00:00','C','Koramangala, Bengaluru, Karnataka, India','aghds',NULL,NULL),(10,'kkkkk','mmmmm','kkk.mmm@kjml.com','1290','77.55458999999996','13.00995','123456bB','2016-02-02 16:40:19','0000-00-00 00:00:00','C','Orion Mall, Bengaluru, Karnataka, India','aaa',NULL,NULL);
+INSERT INTO `m_volunteer` VALUES (1,'raju','somala','search4gyan@gmail.com','9538088668','77.62710779999998','12.9279232','$2y$10$3CVfliLzSqcNHJVV3Rz4d.g70jwKhchLGXXcJc26muzPbqaU35WuK','2016-03-09 15:34:48','0000-00-00 00:00:00','C','Koramangala, Bengaluru, Karnataka, India','j;kjuuipyp',NULL,48388455);
 /*!40000 ALTER TABLE `m_volunteer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -324,7 +460,6 @@ CREATE TABLE `t_help_request` (
   `Longitude` varchar(200) DEFAULT NULL,
   `Duration` int(1) DEFAULT NULL,
   `Status` varchar(3) DEFAULT NULL,
-  `VolunteerId` int(11) DEFAULT NULL,
   `Language` int(3) DEFAULT NULL,
   `Meetingtype` int(3) DEFAULT NULL,
   PRIMARY KEY (`Id`)
@@ -337,7 +472,7 @@ CREATE TABLE `t_help_request` (
 
 LOCK TABLES `t_help_request` WRITE;
 /*!40000 ALTER TABLE `t_help_request` DISABLE KEYS */;
-INSERT INTO `t_help_request` VALUES (1,'123456789','sharukh@gmail.com',1,1,'I want some body to read my text book','1','Asian Highway 47','2015-11-14 06:34:19','2016-01-31 21:08:35','13.0437616','77.55636170000002',1,'P',NULL,NULL,NULL),(2,'9538088668','maniraju@gmail.com',2,1,'','1','undefined','2015-11-28 20:19:31','2016-01-31 21:08:35','','',1,'P',NULL,NULL,NULL),(3,'9538088669','pawan@gmail.com',3,1,'','1','undefined','2015-11-28 20:38:35','2016-01-31 21:08:35','','',1,'P',NULL,NULL,NULL),(4,'123456789','sharukh@gmail.com',4,1,'','1','undefined','2015-11-28 21:28:17','2016-01-31 21:08:35','','',1,'P',0,NULL,NULL),(5,'123456789','sharukh@gmail.com',1,1,'','1','undefined+undefined','2015-11-28 21:34:11','2016-01-31 21:08:35','','',1,'P',0,NULL,NULL),(6,'123456789','sharukh@gmail.com',2,1,'','1','undefined+undefined','2015-11-28 21:35:31','2016-01-31 21:08:35','','',1,'P',0,NULL,NULL),(7,'123456789','sharukh@gmail.com',3,1,'','1','undefined','2015-11-28 21:41:24','2016-01-31 21:08:35','','',1,'P',0,NULL,NULL),(8,'123456789','sharukh@gmail.com',4,1,'','1','Koramangala 3 Block, Koramangala, Bengaluru, Karnataka 560034, India','2015-11-28 21:43:31','2016-01-31 21:08:35','','',1,'P',0,NULL,NULL),(9,'123456789','sharukh@gmail.com',1,1,'','1','Koramangala 3 Block, Koramangala, Bengaluru, Karnataka 560034, India','2015-11-28 21:52:40','2016-01-31 21:08:35','','',1,'P',0,NULL,NULL),(10,'123456789','sharukh@gmail.com',2,1,'','1','Koramangala 3 Block, Koramangala, Bengaluru, Karnataka 560034, India','2015-11-28 21:55:53','2016-01-31 21:08:35','','',1,'P',0,NULL,NULL),(11,'123456789','sharukh@gmail.com',3,1,'','1','Koramangala 3 Block, Koramangala, Bengaluru, Karnataka 560034, India','2015-11-28 21:58:34','2016-01-31 21:08:35','12.9279232','77.62710779999997',1,'P',0,NULL,NULL),(12,'123456789','sharukh@gmail.com',4,1,'','1','Koramangala 3 Block, Koramangala, Bengaluru, Karnataka 560034, India','2015-11-28 22:01:05','2016-01-31 21:08:35','12.9279232','77.62710779999997',1,'P',3,NULL,NULL),(13,'9','maniraju@gmail.com',1,1,'','1','','2015-11-28 22:04:33','2016-01-31 21:08:35','12.9591722','77.69741899999997',1,'P',0,NULL,NULL),(14,'9','mahesh@gmail.com',2,1,'','1','','2015-11-28 22:05:37','2016-01-31 21:08:35','12.8399389','77.67700309999998',1,'P',0,NULL,NULL),(15,'9','pawan@gmail.com',3,1,'','1','','2015-11-28 22:06:53','2016-01-31 21:08:35','13.0184435','77.67812149999997',1,'P',0,NULL,NULL),(16,'9762342374','sharukh@gmail.com',4,1,'','1','','2015-11-28 22:07:23','2016-01-31 21:08:35','13.0357695','77.59702219999997',1,'P',0,NULL,NULL),(18,'93478345387','sharukh1@gmail.com',1,1,'Yes. Will hep you.','1','Koramangala 3 Block, Koramangala, Bengaluru, Karnataka 560034, India','2015-11-28 22:18:49','2016-03-31 21:08:35','12.9279232','77.62710779999998',1,'A',1,NULL,NULL),(19,'93478345387','Tharkh1@gmail.com',2,1,'Yes. Will hep you.','1','Koramangala 3 Block, Koramangala, Bengaluru, Karnataka 560034, India','2015-11-28 22:19:25','2016-01-31 21:08:35','12.9641262','77.57761440000002',1,'P',12,NULL,NULL),(20,'93478345387','harh1@gmail.com',3,1,'Yes. Will hep you.','1','Koramangala 3 Block, Koramangala, Bengaluru, Karnataka 560034, India','2015-11-28 22:19:46','2016-01-31 21:08:35','13.0944536','77.58601220000003',1,'P',0,NULL,NULL),(21,'93478345387','Charh1@gmail.com',4,1,'Yes. Will hep you.','1','Koramangala 3 Block, Koramangala, Bengaluru, Karnataka 560034, India','2015-11-28 22:20:27','2016-01-31 21:08:35','12.9254533','77.54675700000007',1,'P',0,NULL,NULL),(22,'93478345387','uk@gmail.com',1,1,'Yes. Will hep you.','1','Koramangala 3 Block, Koramangala, Bengaluru, Karnataka 560034, India','2015-11-28 22:21:11','2016-01-11 21:08:35','12.9250074','77.59380280000005',1,'P',12,NULL,NULL),(23,'9538088668','maikantaraju@gmail.com',1,1,'','','','0000-00-00 00:00:00','2016-01-11 21:08:35','12.9259','77.6229',3,'P',NULL,NULL,NULL),(24,'9538088668','maikantaraju@gmail.com',1,1,'Want somebody to read my book','H.No 280, KPCL Layout , Kasavanahalli,','','0000-00-00 00:00:00','2016-01-11 21:08:35','12.9259','77.6229',3,'P',NULL,NULL,NULL),(25,'9538088668','maikantaraju@gmail.com',1,1,'Want somebody to read my book','H.No 280, KPCL Layout , Kasavanahalli,','','0000-00-00 00:00:00','2016-01-11 21:08:35','12.9259','77.6229',3,'P',NULL,NULL,NULL),(26,'9538088668','maikantaraju@gmail.com',1,1,'Want somebody to read my book','H.No 280, KPCL Layout , Kasavanahalli,','','0000-00-00 00:00:00','2016-01-11 21:08:35','12.9259','77.6229',3,'P',NULL,NULL,NULL),(27,'9538088668','maikantaraju@gmail.com',1,1,'','','','0000-00-00 00:00:00','2016-01-11 21:08:35','12.9259','77.6229',0,'P',NULL,NULL,NULL),(28,'9538088668','maikantaraju@gmail.com',1,1,'','','','0000-00-00 00:00:00','2016-01-11 21:08:35','12.9259','77.6229',3,'P',NULL,NULL,NULL),(29,'9538088668','maikantaraju@gmail.com',1,1,'','','','2015-12-12 18:51:54','2016-01-11 21:08:35','12.9259','77.6229',3,'P',NULL,NULL,NULL),(30,'9538088668','maikantaraju@gmail.com',1,1,'','','','2015-12-12 18:52:30','2016-01-11 21:08:35','12.9259','77.6229',11,'P',NULL,NULL,NULL),(31,'9538088668','maikantaraju@gmail.com',1,1,'','','','2015-12-12 19:02:54','2016-01-11 21:08:35','12.9259','77.6229',11,'P',NULL,0,1),(32,'9538088668','maikantaraju@gmail.com',1,1,'Want somebody to read my book','H.No 280, KPCL Layout , Kasavanahalli,','','2015-12-12 19:05:20','2016-01-11 21:08:35','12.9259','77.6229',11,'P',NULL,0,1),(33,'9538088668','maikantaraju@gmail.com',1,2,'Want somebody to read my book','H.No 280, KPCL Layout , Kasavanahalli,','','2015-12-12 19:44:46','2016-01-11 21:08:35','12.9259','77.6229',11,'P',1,0,1),(34,'9538088668','maikantaraju@gmail.com',1,2,'Want somebody to read my book','H.No 280, KPCL Layout , Kasavanahalli,','','2015-12-12 19:47:09','2016-01-11 21:08:35','12.9259','77.6229',11,'P',NULL,0,1),(35,'9538088668','maikantaraju@gmail.com',1,2,'Want somebody to read my book','H.No 280, KPCL Layout , Kasavanahalli,','','2015-12-12 20:09:15','2016-01-11 21:08:35','12.9259','77.6229',11,'P',NULL,0,1),(36,'9538088668','maikantaraju@gmail.com',1,2,'Want somebody to read my book','H.No 280, KPCL Layout , Kasavanahalli,','','2015-12-12 20:09:25','2016-01-11 21:08:35','12.9259','77.6229',11,'P',NULL,0,1),(37,'9538088668','maikantaraju@gmail.com',1,2,'Want somebody to read my book','H.No 280, KPCL Layout , Kasavanahalli,','','2015-12-12 20:10:39','2016-01-11 21:08:35','12.9259','77.6229',11,'P',NULL,0,1),(38,'9538088668','maikantaraju@gmail.com',1,2,'Want somebody to read my book','H.No 280, KPCL Layout , Kasavanahalli,','','2015-12-12 20:12:55','2016-01-11 21:08:35','12.9259','77.6229',11,'P',NULL,0,1),(39,'9538088668','maikantaraju@gmail.com',1,2,'Want somebody to read my book','H.No 280, KPCL Layout , Kasavanahalli,','','2015-12-12 20:14:40','2016-01-11 21:08:35','12.9259','77.6229',11,'P',NULL,0,1),(40,'9538088668','maikantaraju@gmail.com',1,2,'Want somebody to read my book','H.No 280, KPCL Layout , Kasavanahalli,','','2015-12-13 08:25:40','2016-01-11 21:08:35','12.9259','77.6229',11,'P',NULL,0,1);
+INSERT INTO `t_help_request` VALUES (1,'9762342374','sharukh@gmail.com',4,1,'','1','','2016-11-28 22:07:23','2016-03-31 21:08:35','12.9279232','77.62710779999998',1,'P',NULL,2),(2,'9538088668','maikantaraju@gmail.com',1,2,'Want somebody to read my book','H.No 280, KPCL Layout , Kasavanahalli,','','2016-12-13 08:25:40','2016-03-11 21:08:35','12.9279232','77.62710779999998',11,'P',0,2),(3,'999999999','aaa@aaa.com',4,1,'shjjlka','jksh',NULL,'2016-02-13 00:00:00','2016-03-13 00:00:00','12.9279232','77.62710779999998',12,'P',NULL,2);
 /*!40000 ALTER TABLE `t_help_request` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -354,7 +489,8 @@ CREATE TABLE `t_help_request_log` (
   `Datetime` datetime DEFAULT NULL,
   `Status` varchar(3) DEFAULT NULL,
   `VolunteerId` int(11) DEFAULT NULL,
-  `Mid` int(6) DEFAULT NULL
+  `Mid` int(6) DEFAULT NULL,
+  `InternalStatus` varchar(5) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -364,7 +500,7 @@ CREATE TABLE `t_help_request_log` (
 
 LOCK TABLES `t_help_request_log` WRITE;
 /*!40000 ALTER TABLE `t_help_request_log` DISABLE KEYS */;
-INSERT INTO `t_help_request_log` VALUES (19,0,'2015-12-09 19:57:15','A',1,1),(19,NULL,'2015-12-09 19:57:15','A',1,1),(19,0,'2015-12-09 19:57:15','A',1,1),(19,0,'2015-12-09 21:42:42','A',1,0),(33,1,'2015-12-13 08:39:24','P',1,0),(33,1,'2015-12-13 08:39:59','C',1,0),(19,1,'2015-12-18 11:37:39','A',12,0),(19,1,'2015-12-19 19:50:49','A',12,0),(19,1,'2015-12-19 19:51:42','A',12,0),(19,1,'2015-12-19 21:09:09','A',12,0),(19,1,'2015-12-19 21:09:56','A',12,0),(18,1,'2015-12-20 10:31:44','A',12,0),(18,1,'2015-12-20 10:36:59','A',12,0),(18,1,'2015-12-20 10:37:26','A',12,0),(18,1,'2015-12-20 10:46:57','A',12,0),(18,1,'2015-12-20 10:53:53','A',12,0),(18,1,'2015-12-20 10:54:32','A',12,0),(18,1,'2015-12-20 11:03:10','A',12,0),(18,1,'2015-12-20 11:04:27','A',12,0),(18,1,'2015-12-20 11:05:22','A',12,0),(18,1,'2015-12-20 11:06:27','A',12,0),(18,1,'2015-12-20 11:07:29','A',12,0),(18,1,'2015-12-20 11:14:46','A',12,0),(18,1,'2015-12-20 11:15:10','A',12,0),(18,1,'2015-12-20 11:21:24','A',12,0),(19,1,'2015-12-20 14:59:23','A',12,0),(19,1,'2015-12-20 15:01:43','A',12,0),(19,1,'2015-12-20 15:02:25','A',12,0),(19,1,'2015-12-20 15:13:39','A',12,0),(19,1,'2015-12-20 15:15:30','A',12,0),(19,1,'2015-12-20 15:16:54','A',12,0),(19,1,'2015-12-20 15:26:27','A',12,0),(19,1,'2015-12-20 15:27:08','A',12,0),(19,1,'2015-12-20 15:28:12','A',12,0),(19,1,'2015-12-20 15:29:41','A',12,0),(19,1,'2015-12-20 15:32:52','A',12,0),(18,1,'2015-12-20 15:35:28','A',12,0),(22,1,'2015-12-20 15:54:25','A',12,0),(18,1,'2015-12-20 15:56:28','A',12,0),(19,1,'2015-12-20 15:59:27','A',12,0),(18,1,'2015-12-20 16:09:45','A',12,0),(18,1,'2015-12-20 16:10:51','A',12,0),(18,1,'2015-12-22 21:14:17','C',12,0),(19,1,'2015-12-28 20:41:11','A',12,0),(18,1,'2016-01-12 21:33:44','A',12,0),(12,1,'2016-01-15 11:56:16','A',12,0),(18,1,'2016-01-15 19:39:51','A',12,0),(19,1,'2016-01-23 11:47:22','A',12,0),(12,1,'2016-01-24 14:50:14','A',3,0),(18,1,'2016-01-30 09:54:04','A',1,0),(18,1,'2016-02-04 18:12:08','A',1,0),(18,1,'2016-02-04 21:09:59','A',1,0),(18,1,'2016-02-04 21:30:25','A',1,0),(18,1,'2016-02-04 21:36:04','A',1,0),(18,1,'2016-02-04 21:36:35','A',1,0),(18,1,'2016-02-04 21:40:23','A',1,0),(18,1,'2016-02-05 22:12:25','A',1,0),(18,1,'2016-02-05 22:21:34','A',1,0),(18,1,'2016-02-05 23:03:18','A',1,0),(18,1,'2016-02-07 10:28:41','A',1,0);
+INSERT INTO `t_help_request_log` VALUES (2,2,'2016-03-10 22:18:53','A',1,0,NULL);
 /*!40000 ALTER TABLE `t_help_request_log` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -377,4 +513,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-02-08 21:37:05
+-- Dump completed on 2016-03-21 15:37:49
