@@ -1,0 +1,29 @@
+Login:
+Completed:
+Design is completed.
+Successfully login
+Session is started after login.
+Pending:
+Need to verify volunteer confirmation status.
+Need to check session code.
+
+Search:
+Basic functionality of search is done.
+Pending:
+If volunteer choose to help online then location need to be disabled.
+If volunteer choose to help online , then in results page filters need to disabled
+If no requests are found in particular location , then display a message does he want to see requests from different location's.
+After accept status need to be update request status 'AC';
+Blind profile display after click on name. 
+Search query need to be verified.
+Filtering options functionality.
+Sort order functionality.
+E-mail content need to be created.
+Remainder's about screen.
+
+Requests History:
+At present it will display in table format.
+Pending:
+Better design will be good.
+Request cancellation.
+After request cancelled need to update request status 'CN'
